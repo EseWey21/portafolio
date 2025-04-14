@@ -1,0 +1,38 @@
+.custom-cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+  }
+  
+  .cursor-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--laser-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--laser-blue);
+  }
+  
+  .cursor-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--bright-fuchsia);
+    border-radius: 50%;
+    transition: all 0.1s ease-out;
+    box-shadow: 0 0 10px var(--bright-fuchsia);
+  }
+  
+  @media (max-width: 768px) {
+    .custom-cursor {
+      display: none;
+    }
+  }
+  

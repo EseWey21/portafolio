@@ -1,0 +1,218 @@
+@import url("https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap");
+
+:root {
+  --laser-blue: #00ffd0;
+  --bright-fuchsia: #ff29cb;
+  --deep-purple: #411c52;
+  --neon-magenta: #e600ff;
+  --dark-blue: #060021;
+  --pastel-yellow: #ffe347;
+  --grid-size: 30px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "VT323", monospace;
+  background-color: var(--dark-blue);
+  color: white;
+  overflow-x: clip;
+  cursor: none;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  /* Remove max-width to allow full width */
+  /* max-width: 1200px; */
+  /* margin: 0 auto; */ /* Remove centering */
+  padding: 0; /* Remove horizontal padding */
+}
+
+/* Centrado horizontal y máximo ancho */
+.page-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Remove align-items: center to prevent horizontal centering */
+  /* align-items: center; */
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Press Start 2P", cursive;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--pastel-yellow);
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--laser-blue);
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--bright-fuchsia);
+  box-shadow: 0 0 10px var(--bright-fuchsia), 0 0 20px var(--bright-fuchsia);
+}
+
+p {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.container {
+  width: 100%;
+  /* Remove max-width to allow full width */
+  /* max-width: 1200px; */
+  margin: 0;
+  padding: 0 2rem;
+}
+
+section {
+  width: 100%;
+  padding: 5rem 0;
+  position: relative;
+}
+
+section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(6, 0, 33, 0.8) 0%, rgba(65, 28, 82, 0.2) 100%);
+  z-index: -1;
+}
+
+.btn {
+  font-family: "Press Start 2P", cursive;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: var(--laser-blue);
+  border: 2px solid var(--laser-blue);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: none;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.4), transparent);
+  transition: all 0.4s ease;
+}
+
+.btn:hover {
+  color: var(--dark-blue);
+  background-color: var(--laser-blue);
+  box-shadow: 0 0 15px var(--laser-blue), 0 0 30px var(--laser-blue);
+  transform: translateY(-3px);
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.grid-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: var(--grid-size) var(--grid-size);
+  background-image: linear-gradient(to right, rgba(65, 28, 82, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(65, 28, 82, 0.1) 1px, transparent 1px);
+  z-index: -2;
+}
+
+.footer {
+  padding: 2rem 0;
+  background-color: rgba(6, 0, 33, 0.9);
+  border-top: 2px solid var(--bright-fuchsia);
+  text-align: center;
+  width: 100%;
+}
+
+.footer-crt-text {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+  color: var(--laser-blue);
+  margin-top: 1rem;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    font-size: 0.7rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+}

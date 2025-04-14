@@ -1,0 +1,133 @@
+.skills {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+}
+
+.skills.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+}
+
+.skills-category {
+  background-color: rgba(6, 0, 33, 0.5);
+  border: 1px solid var(--deep-purple);
+  padding: 2rem;
+  border-radius: 5px;
+  position: relative;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.skills-category:hover {
+  box-shadow: 0 0 15px var(--bright-fuchsia);
+  border-color: var(--bright-fuchsia);
+}
+
+.skills-category-title {
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.2rem;
+  color: var(--pastel-yellow);
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.skills-category-title::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--bright-fuchsia);
+  box-shadow: 0 0 5px var(--bright-fuchsia);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+  transform: translateY(-5px);
+}
+
+.skill-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--deep-purple);
+  border: 1px solid var(--bright-fuchsia);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+  color: var(--laser-blue);
+  box-shadow: 0 0 5px var(--bright-fuchsia);
+}
+
+.skill-name {
+  font-size: 1.1rem;
+  color: white;
+}
+
+.skill-bar {
+  height: 10px;
+  background-color: rgba(65, 28, 82, 0.3);
+  border: 1px solid var(--deep-purple);
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-progress {
+  height: 100%;
+  background: linear-gradient(90deg, var(--laser-blue), var(--bright-fuchsia));
+  position: relative;
+  animation: skill-fill 1.5s ease-out forwards;
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.skills.animate-in .skill-progress {
+  animation: skill-fill 1.5s ease-out forwards;
+}
+
+@keyframes skill-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .skills-category {
+    padding: 1.5rem;
+  }
+
+  .skills-category-title {
+    font-size: 1rem;
+  }
+}
