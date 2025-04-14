@@ -1,158 +1,221 @@
 .about {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  position: relative;
+}
+
+.about-content {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  will-change: transform, opacity;
+}
+
+.about-image-frame {
+  width: 300px;
+  height: 300px;
+  position: relative;
+  border: 3px solid var(--bright-fuchsia);
+  padding: 10px;
+  background-color: rgba(65, 28, 82, 0.3);
+  box-shadow: 0 0 20px var(--bright-fuchsia);
+  transition: all 0.5s var(--transition-smooth);
+}
+
+.about-image-frame:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 10px 30px var(--bright-fuchsia);
+}
+
+.about-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--deep-purple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Nueva clase para la imagen de perfil */
+.about-profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Esto hace que la imagen cubra todo el espacio sin deformarse */
+  z-index: 1; /* Asegura que esté por encima del fondo pero por debajo del efecto glitch */
+}
+
+.about-image-glitch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, var(--bright-fuchsia) 0%, transparent 20%, transparent 80%, var(--laser-blue) 100%);
+  opacity: 0.2;
+  mix-blend-mode: overlay;
+  animation: glitch-move 8s ease-in-out infinite;
+  z-index: 2; /* Asegura que el efecto glitch esté sobre la imagen */
+  pointer-events: none; /* Permite que se pueda interactuar con elementos debajo */
+}
+
+/* Removemos o comentamos las clases para el texto ya que ahora usaremos una imagen */
+/* 
+.about-image-text {
+  font-family: "Press Start 2P", cursive;
+  font-size: 2rem;
+  color: var(--laser-blue);
+  text-shadow: 0 0 10px var(--laser-blue);
+  letter-spacing: 2px;
+  position: relative;
+  z-index: 2;
+}
+
+.about-image-text::after {
+  content: "SAJIT";
+  position: absolute;
+  top: 0;
+  left: 2px;
+  color: var(--bright-fuchsia);
+  text-shadow: 0 0 10px var(--bright-fuchsia);
+  opacity: 0.5;
+  animation: textGlitch 3s infinite alternate;
+}
+*/
+
+.about-text {
+  flex: 1.5;
+  will-change: transform, opacity;
+}
+
+.highlight {
+  color: var(--laser-blue);
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--bright-fuchsia);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s var(--transition-bounce);
+}
+
+.highlight:hover {
+  color: var(--bright-fuchsia);
+  text-shadow: 0 0 5px var(--bright-fuchsia);
+}
+
+.highlight:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.about-more {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: rgba(65, 28, 82, 0.3);
+  border-left: 3px solid var(--bright-fuchsia);
+  position: relative;
+  transition: all 0.5s var(--transition-smooth);
+  backdrop-filter: blur(5px);
+}
+
+.about-more:hover {
+  background-color: rgba(65, 28, 82, 0.5);
+  transform: translateX(10px);
+  box-shadow: -5px 0 15px rgba(255, 41, 203, 0.3);
+}
+
+.about-more::before {
+  content: "// More about me";
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background-color: var(--dark-blue);
+  padding: 0 10px;
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.7rem;
+  color: var(--bright-fuchsia);
+}
+
+@keyframes glitch-move {
+  0%,
+  100% {
+    transform: translate(0);
   }
-  
-  .about.animate-in {
-    opacity: 1;
-    transform: translateY(0);
+  20% {
+    transform: translate(-10px, 10px);
   }
-  
+  40% {
+    transform: translate(10px, -10px);
+  }
+  60% {
+    transform: translate(-5px, 5px);
+  }
+  80% {
+    transform: translate(5px, -5px);
+  }
+}
+
+@keyframes textGlitch {
+  0%,
+  100% {
+    transform: translate(0);
+    opacity: 0.5;
+  }
+  25% {
+    transform: translate(1px, -1px);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate(-1px, 1px);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(1px, 1px);
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 992px) {
   .about-content {
-    display: flex;
-    gap: 4rem;
-    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
   }
-  
-  .about-image {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .about-image-frame {
-    width: 300px;
-    height: 300px;
-    position: relative;
-    border: 3px solid var(--bright-fuchsia);
-    padding: 10px;
-    background-color: rgba(65, 28, 82, 0.3);
-    box-shadow: 0 0 20px var(--bright-fuchsia);
-  }
-  
-  .about-image-placeholder {
-    width: 100%;
-    height: 100%;
-    background-color: var(--deep-purple);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .about-image-glitch {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, var(--bright-fuchsia) 0%, transparent 20%, transparent 80%, var(--laser-blue) 100%);
-    opacity: 0.2;
-    mix-blend-mode: overlay;
-    animation: glitch-move 8s ease-in-out infinite;
-  }
-  
-  .about-image-text {
-    font-family: "Press Start 2P", cursive;
-    font-size: 2rem;
-    color: var(--laser-blue);
-    text-shadow: 0 0 10px var(--laser-blue);
-    letter-spacing: 2px;
-  }
-  
+
   .about-text {
-    flex: 1.5;
+    text-align: center;
   }
-  
-  .highlight {
-    color: var(--laser-blue);
-    font-weight: bold;
-    position: relative;
-    display: inline-block;
-  }
-  
-  .highlight::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--bright-fuchsia);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
-  }
-  
-  .highlight:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-  
+
   .about-more {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background-color: rgba(65, 28, 82, 0.3);
-    border-left: 3px solid var(--bright-fuchsia);
-    position: relative;
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-image-frame {
+    width: 250px;
+    height: 250px;
   }
   
-  .about-more::before {
-    content: "// More about me";
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    background-color: var(--dark-blue);
-    padding: 0 10px;
-    font-family: "Press Start 2P", cursive;
-    font-size: 0.7rem;
-    color: var(--bright-fuchsia);
+  /* Ajustamos también para responsive */
+  .about-profile-image {
+    width: 100%;
+    height: 100%;
   }
-  
-  @keyframes glitch-move {
-    0%,
-    100% {
-      transform: translate(0);
-    }
-    20% {
-      transform: translate(-10px, 10px);
-    }
-    40% {
-      transform: translate(10px, -10px);
-    }
-    60% {
-      transform: translate(-5px, 5px);
-    }
-    80% {
-      transform: translate(5px, -5px);
-    }
-  }
-  
-  @media (max-width: 992px) {
-    .about-content {
-      flex-direction: column;
-      gap: 2rem;
-    }
-  
-    .about-text {
-      text-align: center;
-    }
-  
-    .about-more {
-      text-align: left;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .about-image-frame {
-      width: 250px;
-      height: 250px;
-    }
-  
-    .about-image-text {
-      font-size: 1.5rem;
-    }
-  }
-  
+}

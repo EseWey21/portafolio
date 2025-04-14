@@ -2,10 +2,22 @@
 
 import { useEffect, useRef } from "react"
 import "./Hero.css"
+import { useSpring, animated } from "react-spring"
 
-const Hero = () => {
+const Hero = ({ scrollY }) => {
   const titleRef = useRef(null)
   const subtitleRef = useRef(null)
+
+  // Parallax effects
+  const titleParallax = useSpring({
+    transform: `translate3d(0, ${scrollY * 0.2}px, 0)`,
+    config: { mass: 1, tension: 170, friction: 26 },
+  })
+
+  const circleParallax = useSpring({
+    transform: `translate3d(0, ${scrollY * -0.1}px, 0) rotate(${scrollY * 0.05}deg)`,
+    config: { mass: 1, tension: 170, friction: 26 },
+  })
 
   useEffect(() => {
     const title = titleRef.current
@@ -22,10 +34,9 @@ const Hero = () => {
 
   return (
     <section id="home" className="hero">
-      <div className="grid-bg"></div>
       <div className="hero-glitch-overlay"></div>
       <div className="container hero-container">
-        <div className="hero-content">
+        <animated.div className="hero-content" style={titleParallax}>
           <h1 ref={titleRef} className="hero-title">
             <span className="hero-title-line">EDGAR SAJIT</span>
             <span className="hero-title-line">LOPEZ VENTURA</span>
@@ -43,11 +54,11 @@ const Hero = () => {
               Contáctame
             </a>
           </div>
-        </div>
-        <div className="hero-decoration">
+        </animated.div>
+        <animated.div className="hero-decoration" style={circleParallax}>
           <div className="hero-circle"></div>
           <div className="hero-grid"></div>
-        </div>
+        </animated.div>
       </div>
       <div className="hero-scroll-indicator">
         <div className="scroll-arrow"></div>

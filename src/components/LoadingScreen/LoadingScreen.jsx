@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import "./LoadingScreen.css"
+import { useSpring, animated, config } from "react-spring"
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0)
@@ -17,12 +18,26 @@ const LoadingScreen = () => {
     return () => clearInterval(interval)
   }, [])
 
+  const loadingBarProps = useSpring({
+    width: `${progress}%`,
+    config: config.gentle,
+  })
+
+  const titleProps = useSpring({
+    opacity: 1,
+    transform: "translateY(0)",
+    from: { opacity: 0, transform: "translateY(-50px)" },
+    config: config.gentle,
+  })
+
   return (
     <div className="loading-screen">
       <div className="loading-content">
-        <h1 className="loading-title">SAJIT OS</h1>
+        <animated.h1 className="loading-title" style={titleProps}>
+          SAJIT OS
+        </animated.h1>
         <div className="loading-bar-container">
-          <div className="loading-bar" style={{ width: `${progress}%` }}></div>
+          <animated.div className="loading-bar" style={loadingBarProps}></animated.div>
         </div>
         <div className="loading-text">
           <span>Cargando portafolio...</span>

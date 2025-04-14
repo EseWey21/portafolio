@@ -1,34 +1,22 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import "./Portfolio.css"
+import { useInView } from "react-intersection-observer"
+import { useSpring, animated, config } from "react-spring"
 
 const Portfolio = () => {
-  const sectionRef = useRef(null)
+  const [sectionRef, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  })
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in")
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.2 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-    }
-  }, [])
+  // Animation for the section
+  const sectionAnimation = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateY(0)" : "translateY(50px)",
+    config: config.gentle,
+  })
 
   const projects = [
     {
@@ -65,35 +53,26 @@ const Portfolio = () => {
     <section id="portfolio" className="portfolio" ref={sectionRef}>
       <div className="container">
         <h2 className="section-title">Portafolio</h2>
-        <p className="portfolio-note">
+        <animated.p className="portfolio-note" style={sectionAnimation}>
           Nota: Muchos de mis proyectos son privados por preferencia personal. Aquí hay algunos ejemplos
           representativos.
-        </p>
+        </animated.p>
 
         <div className="projects-grid">
-          {projects.map((project) => (
-            <div className="project-card" key={project.id}>
-              <div className="project-content">
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-description">{project.description}</p>
-                <div className="project-tags">
-                  {project.tags.map((tag, index) => (
-                    <span className="project-tag" key={index}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="project-overlay">
-                <a href={project.link} className="project-link">
-                  Ver Detalles
-                </a>
-              </div>
-            </div>
+          {projects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
-        <div className="portfolio-cta">
+        <animated.div
+          className="portfolio-cta"
+          style={useSpring({
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(30px)",
+            delay: 600,
+            config: config.gentle,
+          })}
+        >
           <a href="https://github.com/EseWey21" target="_blank" rel="noopener noreferrer" className="btn">
             GitHub
           </a>
@@ -105,9 +84,47 @@ const Portfolio = () => {
           >
             LinkedIn
           </a>
-        </div>
+        </animated.div>
       </div>
     </section>
+  )
+}
+
+// Extraído como componente separado y optimizado
+const ProjectCard = ({ project, index }) => {
+  // Usamos useInView con triggerOnce: true para que se active solo una vez
+  const [ref, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  })
+
+  // Animación inicial de entrada (solo se ejecuta una vez)
+  const projectAnimation = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateY(0)" : "translateY(30px)",
+    delay: 150 * index,
+    config: config.gentle,
+  })
+
+  return (
+    <animated.div className="project-card" key={project.id} style={projectAnimation} ref={ref}>
+      <div className="project-content">
+        <h3 className="project-title">{project.title}</h3>
+        <p className="project-description">{project.description}</p>
+        <div className="project-tags">
+          {project.tags.map((tag, tagIndex) => (
+            <span className="project-tag" key={tagIndex}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="project-overlay">
+        <a href={project.link} className="project-link">
+          Ver Detalles
+        </a>
+      </div>
+    </animated.div>
   )
 }
 

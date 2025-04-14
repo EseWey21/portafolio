@@ -1,10 +1,16 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import "./Contact.css"
+import { useInView } from "react-intersection-observer"
+import { useSpring, animated, config } from "react-spring"
 
 const Contact = () => {
-  const sectionRef = useRef(null)
+  const [sectionRef, inView] = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  })
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,29 +18,12 @@ const Contact = () => {
   })
   const [formStatus, setFormStatus] = useState(null)
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in")
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.2 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-    }
-  }, [])
+  // Animation for the section
+  const sectionAnimation = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateY(0)" : "translateY(50px)",
+    config: config.gentle,
+  })
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -69,8 +58,16 @@ const Contact = () => {
       <div className="container">
         <h2 className="section-title">Contacto</h2>
 
-        <div className="contact-container">
-          <div className="contact-info">
+        <animated.div className="contact-container" style={sectionAnimation}>
+          <animated.div
+            className="contact-info"
+            style={useSpring({
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateX(0)" : "translateX(-50px)",
+              delay: 300,
+              config: config.gentle,
+            })}
+          >
             <div className="contact-item">
               <div className="contact-item-icon">📧</div>
               <div className="contact-item-content">
@@ -111,9 +108,17 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </animated.div>
 
-          <div className="contact-form-container">
+          <animated.div
+            className="contact-form-container"
+            style={useSpring({
+              opacity: inView ? 1 : 0,
+              transform: inView ? "translateX(0)" : "translateX(50px)",
+              delay: 300,
+              config: config.gentle,
+            })}
+          >
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-header">
                 <span className="form-title">ENVIAR_MENSAJE.exe</span>
@@ -182,8 +187,8 @@ const Contact = () => {
                 )}
               </div>
             </form>
-          </div>
-        </div>
+          </animated.div>
+        </animated.div>
       </div>
     </section>
   )

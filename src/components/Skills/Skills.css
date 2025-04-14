@@ -1,13 +1,6 @@
 .skills {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
   width: 100%;
-}
-
-.skills.animate-in {
-  opacity: 1;
-  transform: translateY(0);
+  position: relative;
 }
 
 .skills-container {
@@ -23,13 +16,16 @@
   padding: 2rem;
   border-radius: 5px;
   position: relative;
-  transition: all 0.3s ease;
+  transition: all 0.5s var(--transition-smooth);
   width: 100%;
+  backdrop-filter: blur(5px);
+  will-change: transform, opacity;
 }
 
 .skills-category:hover {
-  box-shadow: 0 0 15px var(--bright-fuchsia);
+  box-shadow: 0 0 25px var(--bright-fuchsia);
   border-color: var(--bright-fuchsia);
+  transform: translateY(-10px);
 }
 
 .skills-category-title {
@@ -50,6 +46,13 @@
   height: 2px;
   background: var(--bright-fuchsia);
   box-shadow: 0 0 5px var(--bright-fuchsia);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--transition-smooth);
+}
+
+.skills-category:hover .skills-category-title::after {
+  transform: scaleX(1);
 }
 
 .skills-grid {
@@ -62,11 +65,12 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.5s var(--transition-bounce);
+  will-change: transform, opacity;
 }
 
 .skill-item:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.05);
 }
 
 .skill-icon {
@@ -81,41 +85,23 @@
   font-size: 0.8rem;
   color: var(--laser-blue);
   box-shadow: 0 0 5px var(--bright-fuchsia);
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.skill-item:hover .skill-icon {
+  transform: rotate(10deg);
+  box-shadow: 0 0 15px var(--bright-fuchsia);
 }
 
 .skill-name {
   font-size: 1.1rem;
   color: white;
+  transition: all 0.3s var(--transition-smooth);
 }
 
-.skill-bar {
-  height: 10px;
-  background-color: rgba(65, 28, 82, 0.3);
-  border: 1px solid var(--deep-purple);
-  position: relative;
-  overflow: hidden;
-}
-
-.skill-progress {
-  height: 100%;
-  background: linear-gradient(90deg, var(--laser-blue), var(--bright-fuchsia));
-  position: relative;
-  animation: skill-fill 1.5s ease-out forwards;
-  transform-origin: left;
-  transform: scaleX(0);
-}
-
-.skills.animate-in .skill-progress {
-  animation: skill-fill 1.5s ease-out forwards;
-}
-
-@keyframes skill-fill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+.skill-item:hover .skill-name {
+  color: var(--laser-blue);
+  text-shadow: 0 0 5px var(--laser-blue);
 }
 
 @media (max-width: 768px) {

@@ -8,12 +8,18 @@
   --dark-blue: #060021;
   --pastel-yellow: #ffe347;
   --grid-size: 30px;
+  --transition-smooth: cubic-bezier(0.7, 0, 0.3, 1);
+  --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -24,6 +30,8 @@ body {
   cursor: none;
   width: 100%;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .app {
@@ -31,20 +39,14 @@ body {
   min-height: 100vh;
   width: 100%;
   overflow-x: hidden;
-  /* Remove max-width to allow full width */
-  /* max-width: 1200px; */
-  /* margin: 0 auto; */ /* Remove centering */
-  padding: 0; /* Remove horizontal padding */
+  padding: 0;
 }
 
-/* Centrado horizontal y máximo ancho */
 .page-wrapper {
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* Remove align-items: center to prevent horizontal centering */
-  /* align-items: center; */
   overflow-x: hidden;
 }
 
@@ -82,6 +84,9 @@ h2::after {
   height: 3px;
   background: var(--bright-fuchsia);
   box-shadow: 0 0 10px var(--bright-fuchsia), 0 0 20px var(--bright-fuchsia);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: lineReveal 1.2s var(--transition-smooth) forwards;
 }
 
 p {
@@ -92,8 +97,6 @@ p {
 
 .container {
   width: 100%;
-  /* Remove max-width to allow full width */
-  /* max-width: 1200px; */
   margin: 0;
   padding: 0 2rem;
 }
@@ -102,6 +105,7 @@ section {
   width: 100%;
   padding: 5rem 0;
   position: relative;
+  overflow: hidden;
 }
 
 section::before {
@@ -128,10 +132,11 @@ section::before {
   letter-spacing: 1px;
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.5s var(--transition-smooth);
   cursor: none;
   margin-right: 1rem;
   margin-bottom: 1rem;
+  backdrop-filter: blur(5px);
 }
 
 .btn::before {
@@ -142,14 +147,15 @@ section::before {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.4), transparent);
-  transition: all 0.4s ease;
+  transition: all 0.6s var(--transition-smooth);
 }
 
 .btn:hover {
   color: var(--dark-blue);
   background-color: var(--laser-blue);
   box-shadow: 0 0 15px var(--laser-blue), 0 0 30px var(--laser-blue);
-  transform: translateY(-3px);
+  transform: translateY(-5px) scale(1.05);
+  letter-spacing: 1.5px;
 }
 
 .btn:hover::before {
@@ -166,6 +172,7 @@ section::before {
   background-image: linear-gradient(to right, rgba(65, 28, 82, 0.1) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(65, 28, 82, 0.1) 1px, transparent 1px);
   z-index: -2;
+  will-change: transform;
 }
 
 .footer {
@@ -174,6 +181,19 @@ section::before {
   border-top: 2px solid var(--bright-fuchsia);
   text-align: center;
   width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 41, 203, 0.1), transparent);
+  animation: footerGlow 8s infinite var(--transition-smooth);
 }
 
 .footer-crt-text {
@@ -184,6 +204,47 @@ section::before {
   animation: blink 1s infinite;
 }
 
+/* Nuevas animaciones */
+@keyframes lineReveal {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 @keyframes blink {
   0%,
   100% {
@@ -192,6 +253,25 @@ section::before {
   50% {
     opacity: 0;
   }
+}
+
+@keyframes footerGlow {
+  0%,
+  100% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+}
+
+.section-title {
+  opacity: 0;
+  animation: fadeUp 1s var(--transition-bounce) forwards;
+}
+
+.animate-in {
+  animation: fadeUp 1s var(--transition-bounce) forwards;
 }
 
 @media (max-width: 768px) {

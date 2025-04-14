@@ -1,259 +1,284 @@
 .contact {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  .contact.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
+  width: 100%;
+  position: relative;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  will-change: transform, opacity;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: rgba(6, 0, 33, 0.7);
+  padding: 1.5rem;
+  border: 1px solid var(--deep-purple);
+  transition: all 0.5s var(--transition-bounce);
+  backdrop-filter: blur(5px);
+}
+
+.contact-item:hover {
+  border-color: var(--bright-fuchsia);
+  box-shadow: 0 0 20px rgba(230, 0, 255, 0.3);
+  transform: translateY(-8px) scale(1.03);
+}
+
+.contact-item-icon {
+  font-size: 1.5rem;
+  background-color: var(--deep-purple);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--bright-fuchsia);
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.contact-item:hover .contact-item-icon {
+  transform: rotate(10deg) scale(1.1);
+  box-shadow: 0 0 10px var(--bright-fuchsia);
+}
+
+.contact-item-content {
+  flex: 1;
+}
+
+.contact-item-title {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.9rem;
+  color: var(--laser-blue);
+  margin-bottom: 0.5rem;
+}
+
+.contact-item-value {
+  font-size: 1rem;
+  color: white;
+}
+
+.contact-social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.contact-social-link {
+  color: var(--bright-fuchsia);
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s var(--transition-bounce);
+  padding: 0.3rem 0;
+}
+
+.contact-social-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--bright-fuchsia);
+  transition: width 0.5s var(--transition-smooth);
+}
+
+.contact-social-link:hover {
+  color: var(--laser-blue);
+  text-shadow: 0 0 5px var(--laser-blue);
+  transform: translateY(-3px);
+}
+
+.contact-social-link:hover::after {
+  width: 100%;
+}
+
+.contact-form-container {
+  width: 100%;
+  will-change: transform, opacity;
+}
+
+.contact-form {
+  width: 100%;
+  background-color: rgba(6, 0, 33, 0.7);
+  border: 2px solid var(--deep-purple);
+  overflow: hidden;
+  transition: all 0.5s var(--transition-smooth);
+  backdrop-filter: blur(5px);
+}
+
+.contact-form:hover {
+  border-color: var(--bright-fuchsia);
+  box-shadow: 0 0 30px rgba(230, 0, 255, 0.2);
+}
+
+.form-header {
+  background-color: var(--deep-purple);
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--bright-fuchsia);
+}
+
+.form-title {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.form-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-control {
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.form-control:hover {
+  transform: scale(1.2);
+}
+
+.form-body {
+  padding: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  transform: translateY(0);
+  transition: transform 0.3s var(--transition-smooth);
+}
+
+.form-label-text {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+  color: var(--laser-blue);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: rgba(65, 28, 82, 0.3);
+  border: 1px solid var(--deep-purple);
+  color: white;
+  font-family: "VT323", monospace;
+  font-size: 1.1rem;
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--bright-fuchsia);
+  box-shadow: 0 0 15px rgba(230, 0, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.form-submit {
+  font-family: "Press Start 2P", cursive;
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: transparent;
+  color: var(--laser-blue);
+  border: 2px solid var(--laser-blue);
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--transition-bounce);
+}
+
+.form-submit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.4), transparent);
+  transition: all 0.6s var(--transition-smooth);
+}
+
+.form-submit:hover {
+  color: var(--dark-blue);
+  background-color: var(--laser-blue);
+  box-shadow: 0 0 15px var(--laser-blue);
+  letter-spacing: 1.5px;
+  transform: translateY(-5px);
+}
+
+.form-submit:hover::before {
+  left: 100%;
+}
+
+.form-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.form-success {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(0, 255, 208, 0.1);
+  border: 1px solid var(--laser-blue);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeIn 0.5s var(--transition-smooth);
+}
+
+.success-icon {
+  color: var(--laser-blue);
+  font-size: 1.2rem;
+}
+
+.success-text {
+  color: white;
+}
+
+@media (max-width: 992px) {
   .contact-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
+    grid-template-columns: 1fr;
   }
-  
+
   .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    order: 2;
   }
-  
-  .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    background-color: rgba(6, 0, 33, 0.7);
-    padding: 1.5rem;
-    border: 1px solid var(--deep-purple);
-    transition: all 0.3s ease;
-  }
-  
-  .contact-item:hover {
-    border-color: var(--bright-fuchsia);
-    box-shadow: 0 0 15px rgba(230, 0, 255, 0.3);
-    transform: translateY(-5px);
-  }
-  
-  .contact-item-icon {
-    font-size: 1.5rem;
-    background-color: var(--deep-purple);
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--bright-fuchsia);
-  }
-  
-  .contact-item-content {
-    flex: 1;
-  }
-  
-  .contact-item-title {
-    font-family: "Press Start 2P", cursive;
-    font-size: 0.9rem;
-    color: var(--laser-blue);
-    margin-bottom: 0.5rem;
-  }
-  
-  .contact-item-value {
-    font-size: 1rem;
-    color: white;
-  }
-  
-  .contact-social-links {
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .contact-social-link {
-    color: var(--bright-fuchsia);
-    text-decoration: none;
-    position: relative;
-    transition: all 0.3s ease;
-  }
-  
-  .contact-social-link::after {
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: var(--bright-fuchsia);
-    transition: width 0.3s ease;
-  }
-  
-  .contact-social-link:hover {
-    color: var(--laser-blue);
-  }
-  
-  .contact-social-link:hover::after {
-    width: 100%;
-  }
-  
+
   .contact-form-container {
-    width: 100%;
+    order: 1;
+    margin-bottom: 2rem;
   }
-  
-  .contact-form {
-    width: 100%;
-    background-color: rgba(6, 0, 33, 0.7);
-    border: 2px solid var(--deep-purple);
-    overflow: hidden;
-  }
-  
-  .form-header {
-    background-color: var(--deep-purple);
-    padding: 0.5rem 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--bright-fuchsia);
-  }
-  
-  .form-title {
-    font-family: "Press Start 2P", cursive;
-    font-size: 0.8rem;
-    color: white;
-  }
-  
-  .form-controls {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  .form-control {
-    width: 15px;
-    height: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    color: white;
-    cursor: pointer;
-  }
-  
+}
+
+@media (max-width: 768px) {
   .form-body {
-    padding: 2rem;
+    padding: 1.5rem;
   }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-label {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  .form-label-text {
-    font-family: "Press Start 2P", cursive;
-    font-size: 0.8rem;
-    color: var(--laser-blue);
-  }
-  
-  .form-input,
-  .form-textarea {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: rgba(65, 28, 82, 0.3);
-    border: 1px solid var(--deep-purple);
-    color: white;
-    font-family: "VT323", monospace;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-  }
-  
-  .form-input:focus,
-  .form-textarea:focus {
-    outline: none;
-    border-color: var(--bright-fuchsia);
-    box-shadow: 0 0 10px rgba(230, 0, 255, 0.3);
-  }
-  
-  .form-submit {
-    font-family: "Press Start 2P", cursive;
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    background-color: transparent;
-    color: var(--laser-blue);
-    border: 2px solid var(--laser-blue);
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-  
-  .form-submit::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.4), transparent);
-    transition: all 0.4s ease;
-  }
-  
-  .form-submit:hover {
-    color: var(--dark-blue);
-    background-color: var(--laser-blue);
-    box-shadow: 0 0 15px var(--laser-blue);
-  }
-  
-  .form-submit:hover::before {
-    left: 100%;
-  }
-  
-  .form-submit:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
-  
-  .form-success {
-    margin-top: 1rem;
-    padding: 1rem;
-    background-color: rgba(0, 255, 208, 0.1);
-    border: 1px solid var(--laser-blue);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .success-icon {
-    color: var(--laser-blue);
-    font-size: 1.2rem;
-  }
-  
-  .success-text {
-    color: white;
-  }
-  
-  @media (max-width: 992px) {
-    .contact-container {
-      grid-template-columns: 1fr;
-    }
-  
-    .contact-info {
-      order: 2;
-    }
-  
-    .contact-form-container {
-      order: 1;
-      margin-bottom: 2rem;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .form-body {
-      padding: 1.5rem;
-    }
-  }
-  
+}

@@ -1,138 +1,164 @@
 .portfolio {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  
-  .portfolio.animate-in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  .portfolio-note {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-style: italic;
-    color: var(--laser-blue);
-  }
-  
+  width: 100%;
+  position: relative;
+}
+
+.portfolio-note {
+  text-align: center;
+  margin-bottom: 3rem;
+  font-style: italic;
+  color: var(--laser-blue);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.project-card {
+  background-color: rgba(6, 0, 33, 0.7);
+  border: 2px solid var(--deep-purple);
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.6s var(--transition-bounce);
+  will-change: transform, opacity;
+  backdrop-filter: blur(5px);
+}
+
+.project-card:hover {
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(230, 0, 255, 0.3);
+  border-color: var(--bright-fuchsia);
+  z-index: 1;
+}
+
+.project-content {
+  padding: 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-title {
+  font-family: "Press Start 2P", cursive;
+  font-size: 1rem;
+  color: var(--pastel-yellow);
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.project-title::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: var(--bright-fuchsia);
+  transition: width 0.5s var(--transition-smooth);
+}
+
+.project-card:hover .project-title::after {
+  width: 100%;
+}
+
+.project-description {
+  font-size: 1rem;
+  color: white;
+  margin-bottom: 1.5rem;
+}
+
+.project-tags {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.project-tag {
+  background-color: var(--deep-purple);
+  color: var(--laser-blue);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--bright-fuchsia);
+  transition: all 0.3s var(--transition-smooth);
+}
+
+.project-card:hover .project-tag {
+  background-color: rgba(65, 28, 82, 0.8);
+  transform: scale(1.05);
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(6, 0, 33, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.5s var(--transition-smooth);
+  backdrop-filter: blur(5px);
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.project-link {
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.8rem;
+  color: var(--laser-blue);
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border: 2px solid var(--laser-blue);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--transition-bounce);
+  transform: translateY(20px);
+}
+
+.project-card:hover .project-link {
+  transform: translateY(0);
+}
+
+.project-link::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.4), transparent);
+  transition: all 0.6s var(--transition-smooth);
+}
+
+.project-link:hover {
+  color: var(--dark-blue);
+  background-color: var(--laser-blue);
+  box-shadow: 0 0 15px var(--laser-blue);
+  letter-spacing: 1px;
+}
+
+.project-link:hover::before {
+  left: 100%;
+}
+
+.portfolio-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
   .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    grid-template-columns: 1fr;
   }
-  
-  .project-card {
-    background-color: rgba(6, 0, 33, 0.7);
-    border: 2px solid var(--deep-purple);
-    height: 250px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-  
-  .project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(230, 0, 255, 0.3);
-    border-color: var(--bright-fuchsia);
-  }
-  
-  .project-content {
-    padding: 1.5rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .project-title {
-    font-family: "Press Start 2P", cursive;
-    font-size: 1rem;
-    color: var(--pastel-yellow);
-    margin-bottom: 1rem;
-  }
-  
-  .project-description {
-    font-size: 1rem;
-    color: white;
-    margin-bottom: 1.5rem;
-  }
-  
-  .project-tags {
-    margin-top: auto;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  
-  .project-tag {
-    background-color: var(--deep-purple);
-    color: var(--laser-blue);
-    padding: 0.3rem 0.6rem;
-    font-size: 0.8rem;
-    border: 1px solid var(--bright-fuchsia);
-  }
-  
-  .project-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(6, 0, 33, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 0.3s ease;
-  }
-  
-  .project-card:hover .project-overlay {
-    opacity: 1;
-  }
-  
-  .project-link {
-    font-family: "Press Start 2P", cursive;
-    font-size: 0.8rem;
-    color: var(--laser-blue);
-    text-decoration: none;
-    padding: 0.8rem 1.5rem;
-    border: 2px solid var(--laser-blue);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-  
-  .project-link::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.4), transparent);
-    transition: all 0.4s ease;
-  }
-  
-  .project-link:hover {
-    color: var(--dark-blue);
-    background-color: var(--laser-blue);
-    box-shadow: 0 0 15px var(--laser-blue);
-  }
-  
-  .project-link:hover::before {
-    left: 100%;
-  }
-  
-  .portfolio-cta {
-    display: flex;
-    justify-content: center;
-    margin-top: 3rem;
-  }
-  
-  @media (max-width: 768px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  
+}

@@ -23,6 +23,8 @@
   );
   pointer-events: none;
   z-index: 1;
+  opacity: 0;
+  animation: fadeIn 2s ease-out forwards;
 }
 
 .hero-container {
@@ -31,13 +33,14 @@
   align-items: center;
   position: relative;
   z-index: 2;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  width: 100%;
+  margin: 0;
+  padding: 0 5%;
 }
 
 .hero-content {
   max-width: 600px;
+  will-change: transform;
 }
 
 .hero-title {
@@ -45,7 +48,7 @@
   flex-direction: column;
   opacity: 0;
   transform: translateY(30px);
-  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 1s var(--transition-bounce);
 }
 
 .hero-title.animate-in {
@@ -56,6 +59,20 @@
 .hero-title-line {
   display: block;
   line-height: 1.2;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-title-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--dark-blue);
+  transform: translateX(0);
+  animation: revealText 1.5s var(--transition-smooth) forwards;
 }
 
 .hero-subtitle {
@@ -64,7 +81,7 @@
   margin: 2rem 0;
   opacity: 0;
   transform: translateY(30px);
-  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  transition: all 1s var(--transition-bounce) 0.2s;
 }
 
 .hero-subtitle.animate-in {
@@ -78,22 +95,30 @@
   margin-bottom: 0.5rem;
   position: relative;
   display: inline-block;
+  overflow: hidden;
 }
 
 .hero-subtitle-text::before {
   content: ">";
   color: var(--bright-fuchsia);
   margin-right: 0.5rem;
+  display: inline-block;
+  animation: blink 1s infinite;
 }
 
 .hero-cta {
   margin-top: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s var(--transition-bounce) 1.2s forwards;
 }
 
 .hero-decoration {
   position: relative;
   width: 300px;
   height: 300px;
+  will-change: transform;
+  opacity: 0;
+  animation: scaleIn 1.5s var(--transition-bounce) 0.5s forwards;
 }
 
 .hero-circle {
@@ -102,7 +127,7 @@
   height: 250px;
   border: 3px solid var(--bright-fuchsia);
   border-radius: 50%;
-  animation: rotate 20s linear infinite;
+  animation: rotate 20s linear infinite, pulseGlow 4s ease-in-out infinite;
   box-shadow: 0 0 20px var(--bright-fuchsia), inset 0 0 20px var(--bright-fuchsia);
 }
 
@@ -116,7 +141,7 @@
     linear-gradient(0deg, var(--laser-blue) 1px, transparent 1px);
   background-size: 25px 25px;
   opacity: 0.3;
-  animation: pulse 4s ease-in-out infinite;
+  animation: pulse 4s ease-in-out infinite, rotate 30s linear infinite reverse;
 }
 
 .hero-scroll-indicator {
@@ -128,6 +153,8 @@
   flex-direction: column;
   align-items: center;
   z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 2s forwards;
 }
 
 .scroll-arrow {
@@ -147,6 +174,15 @@
   color: var(--laser-blue);
 }
 
+@keyframes revealText {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -163,6 +199,16 @@
   }
   50% {
     opacity: 0.6;
+  }
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--bright-fuchsia), inset 0 0 20px var(--bright-fuchsia);
+  }
+  50% {
+    box-shadow: 0 0 40px var(--bright-fuchsia), inset 0 0 40px var(--bright-fuchsia);
   }
 }
 
