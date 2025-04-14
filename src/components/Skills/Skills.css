@@ -93,6 +93,17 @@
   box-shadow: 0 0 15px var(--bright-fuchsia);
 }
 
+.skill-icon svg {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease;
+}
+
+.skill-icon:hover svg {
+  transform: scale(1.2);
+}
+
+
 .skill-name {
   font-size: 1.1rem;
   color: white;
@@ -117,3 +128,4 @@
     font-size: 1rem;
   }
 }
+

@@ -5,13 +5,32 @@ import "./Skills.css"
 import { useInView } from "react-intersection-observer"
 import { useSpring, animated, config } from "react-spring"
 
+import {
+  FaPython,
+  FaCss3Alt,
+  FaReact,
+  FaNodeJs,
+  FaMicrosoft,
+  FaCode,
+  FaLanguage
+} from "react-icons/fa"
+
+import {
+  SiCplusplus,
+  SiMysql,
+  SiPostgresql,
+  SiPostman,
+  SiLatex,
+  SiJavascript,
+  SiDotnet
+} from "react-icons/si"
+
 const Skills = () => {
   const [sectionRef, inView] = useInView({
     threshold: 0.2,
     triggerOnce: true,
   })
 
-  // Animation for the section
   const sectionAnimation = useSpring({
     opacity: inView ? 1 : 0,
     transform: inView ? "translateY(0)" : "translateY(50px)",
@@ -22,37 +41,37 @@ const Skills = () => {
     {
       title: "Lenguajes de programación",
       skills: [
-        { name: "C", icon: "C" },
-        { name: "C++", icon: "C++" },
-        { name: "Python", icon: "PY" },
-        { name: "C#", icon: "C#" },
-        { name: "JavaScript", icon: "JS" },
-        { name: "CSS", icon: "CSS" },
+        { name: "C", icon: <FaCode /> },
+        { name: "C++", icon: <SiCplusplus /> },
+        { name: "Python", icon: <FaPython /> },
+        { name: "C#", icon: <FaCode /> },
+        { name: "JavaScript", icon: <SiJavascript /> },
+        { name: "CSS", icon: <FaCss3Alt /> },
       ],
     },
     {
       title: "Frameworks & Librerías",
       skills: [
-        { name: "React", icon: "⚛️" },
-        { name: "Node.js", icon: "🟢" },
-        { name: ".NET", icon: ".NET" },
+        { name: "React", icon: <FaReact /> },
+        { name: "Node.js", icon: <FaNodeJs /> },
+        { name: ".NET", icon: <SiDotnet /> },
       ],
     },
     {
       title: "Herramientas",
       skills: [
-        { name: "MySQL", icon: "SQL" },
-        { name: "PostgreSQL", icon: "PG" },
-        { name: "Postman", icon: "🔄" },
-        { name: "LaTeX", icon: "LaTeX" },
-        { name: "Office", icon: "📊" },
+        { name: "MySQL", icon: <SiMysql /> },
+        { name: "PostgreSQL", icon: <SiPostgresql /> },
+        { name: "Postman", icon: <SiPostman /> },
+        { name: "LaTeX", icon: <SiLatex /> },
+        { name: "Office", icon: <FaMicrosoft /> },
       ],
     },
     {
       title: "Idiomas",
       skills: [
-        { name: "Español (nativo)", icon: "🇲🇽" },
-        { name: "Inglés (B1)", icon: "🇬🇧" },
+        { name: "Español (nativo)", icon: <FaLanguage /> },
+        { name: "Inglés (B1)", icon: <FaLanguage /> },
       ],
     },
   ]
@@ -93,7 +112,9 @@ const Skills = () => {
               <div className="skills-grid">
                 {category.skills.map((skill, skillIndex) => (
                   <animated.div className="skill-item" key={skillIndex} style={skillAnimations[index][skillIndex]}>
-                    <div className="skill-icon">{skill.icon}</div>
+                    <div className="skill-icon" title={skill.name}>
+                      {skill.icon}
+                    </div>
                     <div className="skill-name">{skill.name}</div>
                   </animated.div>
                 ))}
