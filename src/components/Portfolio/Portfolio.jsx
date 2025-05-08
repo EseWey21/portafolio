@@ -1,6 +1,4 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import "./Portfolio.css"
 import { useInView } from "react-intersection-observer"
 import { useSpring, animated, config } from "react-spring"
@@ -21,30 +19,32 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: "Proyecto de Seguridad",
-      description: "Sistema de análisis de vulnerabilidades desarrollado para la consultoría de seguridad.",
-      tags: ["C#", ".NET", "SQL"],
-      link: "#",
+      title: "Servidor P2P tipo Torrent",
+      description:
+        "Desarrollo de un programa en Python que implementa un sistema de compartición de archivos peer-to-peer similar a BitTorrent.",
+      tags: ["Python"],
+      link: "https://github.com/EseWey21/SD/tree/main/Proyecto",
     },
     {
       id: 2,
-      title: "Aplicación Web",
-      description: "Desarrollo frontend con React para una plataforma de gestión de datos.",
-      tags: ["React", "JavaScript", "CSS"],
-      link: "#",
+      title: "NAAT Intelligence",
+      description:
+        "Plataforma de análisis de sábanas telefónicas para investigación y análisis de datos de comunicación.",
+      tags: ["React", "C#", ".NET"],
+      link: "https://naatintelligence.com",
     },
     {
       id: 3,
-      title: "Sistema de Monitoreo",
-      description: "Herramienta para monitorear y analizar tráfico de red en tiempo real.",
-      tags: ["Python", "PostgreSQL"],
-      link: "#",
+      title: "BestPCDeals",
+      description: "Sitio web para encontrar las mejores ofertas en componentes y equipos de cómputo.",
+      tags: ["React", "Node.js"],
+      link: "https://bestpcdeals.febacode.com",
     },
     {
       id: 4,
-      title: "API REST",
-      description: "Desarrollo de servicios backend para aplicación móvil.",
-      tags: ["Node.js", "Express", "MongoDB"],
+      title: "Portafolio Personal",
+      description: "Diseño y desarrollo de mi sitio web personal con estética cyberpunk/retro.",
+      tags: ["React", "JavaScript", "CSS"],
       link: "#",
     },
   ]
@@ -54,8 +54,7 @@ const Portfolio = () => {
       <div className="container">
         <h2 className="section-title">Portafolio</h2>
         <animated.p className="portfolio-note" style={sectionAnimation}>
-          Nota: Muchos de mis proyectos son privados por preferencia personal. Aquí hay algunos ejemplos
-          representativos.
+          Algunos de mis proyectos personales y profesionales más destacados.
         </animated.p>
 
         <div className="projects-grid">
@@ -120,7 +119,7 @@ const ProjectCard = ({ project, index }) => {
         </div>
       </div>
       <div className="project-overlay">
-        <a href={project.link} className="project-link">
+        <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
           Ver Detalles
         </a>
       </div>
