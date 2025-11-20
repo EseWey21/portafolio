@@ -69,15 +69,17 @@
 .project-description {
   font-size: 1rem;
   color: white;
-  margin-bottom: 1rem;
+  margin-bottom: 3.5rem;
 }
 
 .project-tags {
-  margin-top: auto;
+  position: absolute;
+  bottom: 1rem;
+  left: 1.5rem;
+  right: 1.5rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 .project-tag {
