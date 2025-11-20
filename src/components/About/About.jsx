@@ -44,7 +44,7 @@ const About = () => {
           </animated.div>
           <animated.div className="about-text" style={textAnimation}>
             <p>
-              Hola, soy <span className="highlight">Sajit (Edgar Sajit Lopez Ventura)</span>, tengo 22 años y soy
+              Hola, soy <span className="highlight">Sajit (Edgar Sajit Lopez Ventura)</span>, tengo 23 años y soy
               estudiante de Ingeniería en Telemática en UPIITA – IPN. Actualmente también me desempeño como
               desarrollador junior en una consultoría enfocada en seguridad y protección informática.
             </p>
