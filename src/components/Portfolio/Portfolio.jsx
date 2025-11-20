@@ -27,11 +27,11 @@ const Portfolio = () => {
     },
     {
       id: 2,
-      title: "NAAT Intelligence",
+      title: "Plataforma de Inteligencia de Datos",
       description:
         "Plataforma de análisis de sábanas telefónicas para investigación y análisis de datos de comunicación.",
       tags: ["React", "C#", ".NET"],
-      link: "https://naatintelligence.com",
+      link: null,
     },
     {
       id: 3,
@@ -118,11 +118,13 @@ const ProjectCard = ({ project, index }) => {
           ))}
         </div>
       </div>
-      <div className="project-overlay">
-        <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
-          Ver Detalles
-        </a>
-      </div>
+      {project.link && (
+        <div className="project-overlay">
+          <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
+            Ver Detalles
+          </a>
+        </div>
+      )}
     </animated.div>
   )
 }
