@@ -19,14 +19,6 @@ const Portfolio = () => {
   const projects = [
     {
       id: 1,
-      title: "Servidor P2P tipo Torrent",
-      description:
-        "Desarrollo de un programa en Python que implementa un sistema de compartición de archivos peer-to-peer similar a BitTorrent.",
-      tags: ["Python"],
-      link: "https://github.com/EseWey21/SD/tree/main/Proyecto",
-    },
-    {
-      id: 2,
       title: "Plataforma de Inteligencia de Datos",
       description:
         "Plataforma de análisis de sábanas telefónicas para investigación y análisis de datos de comunicación.",
@@ -34,18 +26,26 @@ const Portfolio = () => {
       link: null,
     },
     {
-      id: 3,
+      id: 2,
       title: "Plataforma Para El Control de Auditorías",
       description: "Plataforma para el control y gestión de auditorías internas dentro de un grupo comercial.",
       tags: ["React", "Node.js"],
       link: null,
     },
     {
-      id: 4,
+      id: 3,
       title: "Mácara",
       description: "Diseño y desarrollo de sitio web y aplicacion móvil de una cafetería local.",
       tags: ["React", "React Native", "Node.js"],
       link: "https://macaracafe.com",
+    },
+    {
+      id: 4,
+      title: "Servidor P2P tipo Torrent",
+      description:
+        "Desarrollo de un programa en Python que implementa un sistema de compartición de archivos peer-to-peer similar a BitTorrent.",
+      tags: ["Python"],
+      link: "https://github.com/EseWey21/SD/tree/main/Proyecto",
     },
   ]
 
