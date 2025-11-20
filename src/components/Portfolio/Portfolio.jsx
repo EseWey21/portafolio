@@ -35,10 +35,10 @@ const Portfolio = () => {
     },
     {
       id: 3,
-      title: "BestPCDeals",
-      description: "Sitio web para encontrar las mejores ofertas en componentes y equipos de cómputo.",
+      title: "Plataforma Para El Control de Auditorías",
+      description: "Sitio web para el control y gestión de auditorías internas dentro de un grupo comercial.",
       tags: ["React", "Node.js"],
-      link: "https://bestpcdeals.febacode.com",
+      link: "null",
     },
     {
       id: 4,
