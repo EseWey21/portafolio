@@ -36,16 +36,16 @@ const Portfolio = () => {
     {
       id: 3,
       title: "Plataforma Para El Control de Auditorías",
-      description: "Sitio web para el control y gestión de auditorías internas dentro de un grupo comercial.",
+      description: "Plataforma para el control y gestión de auditorías internas dentro de un grupo comercial.",
       tags: ["React", "Node.js"],
-      link: "null",
+      link: null,
     },
     {
       id: 4,
-      title: "Portafolio Personal",
-      description: "Diseño y desarrollo de mi sitio web personal con estética cyberpunk/retro.",
-      tags: ["React", "JavaScript", "CSS"],
-      link: "#",
+      title: "Mácara",
+      description: "Diseño y desarrollo de sitio web y aplicacion móvil de una cafetería local.",
+      tags: ["React", "React Native", "Node.js"],
+      link: "https://macaracafe.com",
     },
   ]
 
