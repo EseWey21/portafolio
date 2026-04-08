@@ -1,6 +1,5 @@
 .skills {
   width: 100%;
-  position: relative;
 }
 
 .skills-bento {
@@ -11,28 +10,18 @@
 }
 
 .skill-category {
-  /* Using bento-card from global/About but with local additions */
-  background-color: var(--bento-bg);
-  border: 1px solid var(--bento-border-light);
-  border-radius: 12px;
-  backdrop-filter: var(--glass-blur);
-  padding: 2rem;
-  transition: all 0.5s var(--transition-smooth);
-}
-
-.skill-category:hover {
-  box-shadow: 0 0 20px rgba(0, 255, 208, 0.1);
-  border-color: var(--laser-blue);
-  transform: translateY(-5px);
+  display: flex;
+  flex-direction: column;
 }
 
 .skills-category-title {
-  font-family: "Press Start 2P", cursive;
-  font-size: 1.2rem;
-  color: var(--pastel-yellow);
-  margin-bottom: 1.5rem;
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  color: var(--accent-purple);
+  margin-bottom: 2rem;
   position: relative;
   display: inline-block;
+  align-self: flex-start;
 }
 
 .skills-category-title::after {
@@ -42,106 +31,82 @@
   left: 0;
   width: 100%;
   height: 2px;
-  background: var(--bright-fuchsia);
-  box-shadow: 0 0 5px var(--bright-fuchsia);
+  background: var(--accent-pink);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.8s var(--transition-smooth);
+  transition: transform 0.4s var(--transition-smooth);
 }
 
-.skills-category:hover .skills-category-title::after {
+.skill-category:hover .skills-category-title::after {
   transform: scaleX(1);
 }
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1rem;
 }
 
 .skill-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   cursor: default;
+  transition: transform 0.3s var(--transition-fast);
+}
+
+.skill-item:hover {
+  transform: translateY(-5px);
 }
 
 .skill-icon {
-  width: 40px;
-  height: 40px;
-  background-color: var(--deep-purple);
-  border: 1px solid var(--bright-fuchsia);
+  width: 45px;
+  height: 45px;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Press Start 2P", cursive;
-  font-size: 0.8rem;
-  color: var(--laser-blue);
-  box-shadow: 0 0 5px var(--bright-fuchsia);
-  transition: all 0.3s var(--transition-smooth);
+  color: var(--text-main);
+  box-shadow: 2px 2px 0 var(--border-color);
+  transition: all 0.3s var(--transition-fast);
 }
 
 .skill-item:hover .skill-icon {
-  transform: rotate(10deg);
-  box-shadow: 0 0 15px var(--bright-fuchsia);
+  background-color: var(--accent-purple);
+  color: #fff;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--border-color);
 }
 
 .skill-icon svg {
-  width: 28px;
-  height: 28px;
-  transition: transform 0.3s ease;
+  width: 24px;
+  height: 24px;
 }
-
-.skill-icon:hover svg {
-  transform: scale(1.2);
-}
-
 
 .skill-name {
-  font-size: 1.1rem;
-  color: white;
-  transition: all 0.3s var(--transition-smooth);
+  font-size: 0.9rem;
+  color: var(--text-main);
+  font-weight: 500;
+  text-align: center;
 }
 
 .skill-item:hover .skill-name {
-  color: var(--laser-blue);
+  color: var(--accent-pink);
 }
 
 @media (max-width: 992px) {
   .skills-bento {
     grid-template-columns: 1fr;
   }
-}
-
-@media (max-width: 768px) {
   .skills-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-
-  .skill-category {
-    padding: 1.5rem;
-  }
-
-  .skills-category-title {
-    font-size: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   }
 }
 
 @media (max-width: 480px) {
   .skills-grid {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 0.8rem;
-  }
-
-  .skill-category {
-    padding: 1.2rem;
-  }
-
-  .skill-item {
-    gap: 0.6rem;
-  }
-
-  .skill-name {
-    font-size: 0.9rem;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
   }
 }

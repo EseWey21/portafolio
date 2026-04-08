@@ -1,50 +1,76 @@
-"use client"
+import { useEffect, useRef } from "react"
 import "./Contact.css"
-import { motion } from "framer-motion"
 import { useLanguage } from "../../context/LanguageContext"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Contact = () => {
   const { t } = useLanguage()
+  const contactRef = useRef(null)
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-  }
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.fromTo(".section-title", 
+        { y: 30, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".contact",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out"
+        }
+      );
 
-  const leftVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  }
+      gsap.fromTo(".contact-info", 
+        { x: -40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".contact-container",
+            start: "top 80%",
+          },
+          x: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out"
+        }
+      );
 
-  const rightVariants = {
-    hidden: { opacity: 0, x: 30 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  }
+      gsap.fromTo(".contact-form-container", 
+        { x: 40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".contact-container",
+            start: "top 80%",
+          },
+          x: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out"
+        }
+      );
+    }, contactRef);
+
+    return () => ctx.revert();
+  }, [])
 
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact" ref={contactRef}>
       <div className="container">
-        <motion.h2 
-          className="section-title"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {t('contact.title')}
-        </motion.h2>
+        <h2 className="section-title">
+          {t('contact.title') || "CONTACT"}
+        </h2>
 
-        <motion.div 
-          className="contact-container"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          <motion.div className="bento-card contact-info" variants={leftVariants}>
+        <div className="contact-container">
+          <div className="contact-info retro-container">
             <div className="contact-item">
               <div className="contact-item-icon">📧</div>
               <div className="contact-item-content">
-                <h3 className="contact-item-title">{t('contact.email')}</h3>
+                <h3 className="contact-item-title">{t('contact.email') || "EMAIL"}</h3>
                 <p className="contact-item-value">sajitlove@hotmail.com</p>
               </div>
             </div>
@@ -52,7 +78,7 @@ const Contact = () => {
             <div className="contact-item">
               <div className="contact-item-icon">📱</div>
               <div className="contact-item-content">
-                <h3 className="contact-item-title">{t('contact.phone')}</h3>
+                <h3 className="contact-item-title">{t('contact.phone') || "PHONE"}</h3>
                 <p className="contact-item-value">551 725 3335</p>
               </div>
             </div>
@@ -60,7 +86,7 @@ const Contact = () => {
             <div className="contact-item">
               <div className="contact-item-icon">🔗</div>
               <div className="contact-item-content">
-                <h3 className="contact-item-title">{t('contact.networks')}</h3>
+                <h3 className="contact-item-title">{t('contact.networks') || "NETWORKS"}</h3>
                 <div className="contact-social-links">
                   <a href="https://github.com/EseWey21" target="_blank" rel="noopener noreferrer" className="contact-social-link">
                     GitHub
@@ -71,10 +97,9 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div className="bento-card contact-form-container" variants={rightVariants}>
-            {/* Agregamos el arte ASCII en su lugar */}
+          <div className="contact-form-container retro-container p-0">
             <div className="ascii-art-container">
               <div className="ascii-art-header">
                 <span className="form-title">ASCII_ART.exe</span>
@@ -115,8 +140,8 @@ const Contact = () => {
                 </pre>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   )

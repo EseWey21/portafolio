@@ -1,79 +1,97 @@
-"use client"
+import { useEffect, useRef } from "react"
 import "./About.css"
 import miImagen from '../assets/profile.jpg'
 import { useLanguage } from "../../context/LanguageContext"
-import { motion } from "framer-motion"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const About = () => {
   const { t } = useLanguage()
+  const aboutRef = useRef(null)
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-  }
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.fromTo(".section-title", 
+        { y: 30, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".about",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out"
+        }
+      );
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  }
+      gsap.fromTo(".bento-card", 
+        { y: 40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".about-bento",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "back.out(1.2)"
+        }
+      );
+    }, aboutRef);
+
+    return () => ctx.revert();
+  }, [])
 
   return (
-    <section id="about" className="about">
+    <section id="about" className="about" ref={aboutRef}>
       <div className="container">
-        <motion.h2 
-          className="section-title"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}
-        >
-          {t('about.title')}
-        </motion.h2>
+        <h2 className="section-title">
+          {t('about.title') || "ABOUT_ME"}
+        </h2>
 
-        <motion.div 
-          className="about-bento"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
+        <div className="about-bento">
           {/* Card 1: Intro */}
-          <motion.div className="bento-card bento-intro" variants={cardVariants}>
+          <div className="bento-card bento-intro retro-container">
             <p>
-              {t('about.p1_1')}<span className="highlight">{t('about.p1_mock')}</span>{t('about.p1_2')}
+              {t('about.p1_1') || "Hi, I am "}<span className="highlight">{t('about.p1_mock') || "Sajit"}</span>{t('about.p1_2') || " and I build things"}
             </p>
-          </motion.div>
+          </div>
 
           {/* Card 2: Image */}
-          <motion.div className="bento-card bento-image" variants={cardVariants}>
+          <div className="bento-card bento-image retro-container">
+            <div className="about-image-header">PLAYER 1 PROFILE</div>
             <div className="about-image-placeholder">
-              <div className="about-image-glitch"></div>
               <img src={miImagen} alt="Sajit" className="about-profile-image" />
             </div>
-          </motion.div>
+          </div>
 
           {/* Card 3: Details */}
-          <motion.div className="bento-card bento-details" variants={cardVariants}>
+          <div className="bento-card bento-details retro-container">
             <p>
               {t('about.p2_1')}<span className="highlight">{t('about.p2_mock')}</span>{t('about.p2_2')}
             </p>
             <p>{t('about.p3')}</p>
-          </motion.div>
+          </div>
 
           {/* Card 4: Hobbies */}
-          <motion.div className="bento-card bento-hobbies" variants={cardVariants}>
+          <div className="bento-card bento-hobbies retro-container">
+            <div className="about-image-header">INVENTORY</div>
             <p>
               {t('about.p4_1')}<span className="highlight">{t('about.p4_mock')}</span>{t('about.p4_2')}
             </p>
-          </motion.div>
+          </div>
 
           {/* Card 5: Soft Skills */}
-          <motion.div className="bento-card bento-soft" variants={cardVariants}>
+          <div className="bento-card bento-soft retro-container">
             <div className="about-more">
               <p>{t('about.p5')}</p>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   )

@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--dark-blue);
+  background-color: var(--bg-color);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,72 +17,52 @@
 }
 
 .loading-title {
-  font-family: "Press Start 2P", cursive;
+  font-family: var(--font-pixel);
   font-size: 2.5rem;
-  color: var(--pastel-yellow);
+  color: var(--accent-purple);
   text-align: center;
   margin-bottom: 2rem;
-  text-shadow: 0 0 10px var(--pastel-yellow);
-  position: relative;
-  will-change: transform, opacity;
-  /* Aplicando un efecto glitch sutil sin duplicar el texto */
-  animation: title-glitch 2s infinite alternate;
+  animation: blink 2s infinite alternate;
 }
-
-/* Eliminado el pseudo-elemento ::after que duplicaba el texto */
 
 .loading-bar-container {
   width: 100%;
-  height: 20px;
-  background-color: rgba(65, 28, 82, 0.3);
-  border: 2px solid var(--bright-fuchsia);
-  margin-bottom: 1rem;
-  position: relative;
+  height: 30px;
+  background-color: var(--bg-secondary);
+  border: 4px solid var(--border-color);
+  box-shadow: 6px 6px 0 var(--shadow-color);
+  padding: 0;
+  margin-bottom: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 0 15px rgba(230, 0, 255, 0.3);
+  display: flex;
 }
 
 .loading-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--laser-blue), var(--bright-fuchsia));
-  transition: width 0.2s ease;
-  position: relative;
-  will-change: width;
-}
-
-.loading-bar::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  animation: loading-shine 1.5s infinite;
+  background-color: var(--accent-pink);
+  transition: width 0.1s ease;
+  border-right: 4px solid var(--border-color);
 }
 
 .loading-text {
   display: flex;
   justify-content: space-between;
-  font-family: "Press Start 2P", cursive;
+  font-family: var(--font-pixel);
   font-size: 0.8rem;
-  color: var(--laser-blue);
+  color: var(--accent-purple);
   margin-bottom: 2rem;
 }
 
 .loading-percentage {
-  color: var(--bright-fuchsia);
-  animation: blink 1s infinite alternate;
+  color: var(--accent-pink);
 }
 
 .loading-message {
-  font-family: "VT323", monospace;
-  font-size: 1.2rem;
-  color: white;
+  font-family: var(--font-pixel);
+  font-size: 0.8rem;
+  color: var(--text-main);
   text-align: center;
-  height: 1.5rem;
   position: relative;
-  overflow: hidden;
 }
 
 .loading-message::after {
@@ -90,44 +70,6 @@
   animation: blink 1s infinite;
 }
 
-@keyframes loading-shine {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-/* Nuevo efecto glitch que aplica solo al título sin duplicarlo */
-@keyframes title-glitch {
-  0% {
-    text-shadow: 0 0 10px var(--pastel-yellow);
-    transform: translate(0);
-  }
-  20% {
-    text-shadow: -2px 0 var(--bright-fuchsia), 2px 0 var(--laser-blue), 0 0 10px var(--pastel-yellow);
-    transform: translate(-2px, 2px);
-  }
-  40% {
-    text-shadow: 2px 0 var(--bright-fuchsia), -2px 0 var(--laser-blue), 0 0 10px var(--pastel-yellow);
-    transform: translate(-2px, -2px);
-  }
-  60% {
-    text-shadow: -2px 0 var(--laser-blue), 2px 0 var(--bright-fuchsia), 0 0 10px var(--pastel-yellow);
-    transform: translate(2px, 2px);
-  }
-  80% {
-    text-shadow: 2px 0 var(--laser-blue), -2px 0 var(--bright-fuchsia), 0 0 10px var(--pastel-yellow);
-    transform: translate(2px, -2px);
-  }
-  100% {
-    text-shadow: 0 0 10px var(--pastel-yellow);
-    transform: translate(0);
-  }
-}
-
-/* Añadimos la animación de parpadeo que estaba faltando */
 @keyframes blink {
   0%, 49% {
     opacity: 1;
@@ -141,8 +83,10 @@
   .loading-title {
     font-size: 1.8rem;
   }
-
   .loading-text {
+    font-size: 0.6rem;
+  }
+  .loading-message {
     font-size: 0.6rem;
   }
 }

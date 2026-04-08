@@ -1,96 +1,77 @@
 .portfolio {
   width: 100%;
-  position: relative;
 }
 
 .portfolio-note {
+  font-family: var(--font-pixel);
   text-align: center;
+  font-size: 0.7rem;
   margin-bottom: 3rem;
-  font-style: italic;
-  color: var(--laser-blue);
+  color: var(--accent-purple);
+  animation: blink 2s infinite alternate;
 }
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
 }
 
 .project-card {
-  height: 280px;
+  --focus-color: var(--accent-pink);
   position: relative;
   overflow: hidden;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.project-card:hover {
-  border-color: var(--laser-blue);
-  box-shadow: 0 15px 30px rgba(0, 255, 208, 0.1);
-  z-index: 1;
+.project-header {
+  background-color: var(--border-color);
+  color: var(--bg-color);
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  padding: 0.4rem 0.8rem;
 }
 
 .project-content {
   padding: 1.5rem;
-  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .project-title {
-  font-family: "Press Start 2P", cursive;
-  font-size: 1.1rem;
-  color: var(--pastel-yellow);
+  font-family: var(--font-pixel);
+  font-size: 1rem;
+  color: var(--accent-purple);
   margin-bottom: 1rem;
-  position: relative;
-  display: inline-block;
-  line-height: 1.3;
-}
-
-.project-title::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 50px;
-  height: 2px;
-  background: var(--bright-fuchsia);
-  transition: width 0.5s var(--transition-smooth);
-}
-
-.project-card:hover .project-title::after {
-  width: 100%;
+  line-height: 1.4;
 }
 
 .project-description {
-  font-size: 1.15rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 3.5rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  flex: 1;
 }
 
 .project-tags {
-  position: absolute;
-  bottom: 1rem;
-  left: 1.5rem;
-  right: 1.5rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
 .project-tag {
-  background-color: var(--deep-purple);
-  color: var(--laser-blue);
-  padding: 0.3rem 0.6rem;
-  font-size: 0.9rem;
-  border: 1px solid var(--bright-fuchsia);
-  transition: all 0.3s var(--transition-smooth);
-}
-
-.project-card:hover .project-tag {
-  background-color: rgba(65, 28, 82, 0.8);
-  transform: scale(1.05);
+  background-color: var(--bg-secondary);
+  color: var(--accent-purple);
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  font-family: var(--font-retro);
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  text-transform: uppercase;
 }
 
 .project-overlay {
@@ -99,62 +80,44 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(6, 0, 33, 0.9);
+  background-color: rgba(123, 44, 191, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: all 0.5s var(--transition-smooth);
-  backdrop-filter: blur(5px);
+  transition: all 0.3s var(--transition-fast);
+  text-decoration: none;
 }
 
 .project-card:hover .project-overlay {
   opacity: 1;
 }
 
-.project-link {
-  font-family: "Press Start 2P", cursive;
+.project-link-text {
+  font-family: var(--font-pixel);
   font-size: 0.8rem;
-  color: var(--laser-blue);
-  text-decoration: none;
-  padding: 0.8rem 1.5rem;
-  border: 2px solid var(--laser-blue);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.5s var(--transition-bounce);
+  color: var(--bg-color);
+  background-color: var(--text-main);
+  border: 2px solid var(--bg-color);
+  padding: 0.5rem 1rem;
   transform: translateY(20px);
+  transition: transform 0.3s var(--transition-smooth);
 }
 
-.project-card:hover .project-link {
+.project-card:hover .project-link-text {
   transform: translateY(0);
 }
 
-.project-link::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.4), transparent);
-  transition: all 0.6s var(--transition-smooth);
-}
-
-.project-link:hover {
-  color: var(--dark-blue);
-  background-color: var(--laser-blue);
-  box-shadow: 0 0 15px var(--laser-blue);
-  letter-spacing: 1px;
-}
-
-.project-link:hover::before {
-  left: 100%;
+.project-link-text:hover {
+  background-color: #fff;
+  color: var(--accent-purple);
 }
 
 .portfolio-cta {
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  gap: 1.5rem;
+  margin-top: 4rem;
 }
 
 @media (max-width: 768px) {
@@ -164,20 +127,7 @@
 }
 
 @media (max-width: 480px) {
-  .project-card {
-    height: 350px;
-  }
-  
   .project-content {
-    padding: 1.5rem;
-  }
-  
-  .project-description {
-    font-size: 1.05rem;
-    margin-bottom: 2.5rem;
-  }
-  
-  .project-title {
-    font-size: 1rem;
+    padding: 1rem;
   }
 }

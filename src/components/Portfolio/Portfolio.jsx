@@ -1,10 +1,14 @@
-"use client"
+import { useEffect, useRef } from "react"
 import "./Portfolio.css"
-import { motion } from "framer-motion"
 import { useLanguage } from "../../context/LanguageContext"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Portfolio = () => {
   const { t } = useLanguage()
+  const portfolioRef = useRef(null)
 
   const projects = [
     {
@@ -44,79 +48,109 @@ const Portfolio = () => {
     },
   ]
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-  }
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.fromTo(".section-title", 
+        { y: 30, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".portfolio",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out"
+        }
+      );
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-  }
+      gsap.fromTo(".portfolio-note", 
+        { y: 20, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".portfolio",
+            start: "top 75%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          ease: "power2.out"
+        }
+      );
+
+      gsap.fromTo(".project-card", 
+        { y: 40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".projects-grid",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: "back.out(1.2)"
+        }
+      );
+      
+      gsap.fromTo(".portfolio-cta .btn", 
+        { scale: 0.8, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".portfolio-cta",
+            start: "top 90%",
+          },
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "back.out(1.5)"
+        }
+      );
+
+    }, portfolioRef);
+
+    return () => ctx.revert();
+  }, [])
 
   return (
-    <section id="portfolio" className="portfolio">
+    <section id="portfolio" className="portfolio" ref={portfolioRef}>
       <div className="container">
-        <motion.h2 
-          className="section-title"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {t('portfolio.title')}
-        </motion.h2>
+        <h2 className="section-title">
+          {t('portfolio.title') || "LEVELS"}
+        </h2>
         
-        <motion.p 
-          className="portfolio-note"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {t('portfolio.subtitle')}
-        </motion.p>
+        <p className="portfolio-note">
+          {t('portfolio.subtitle') || "Select your stage"}
+        </p>
 
-        <motion.div 
-          className="projects-grid"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
+        <div className="projects-grid">
           {projects.map((project) => (
-            <ProjectCard key={project.id} project={project} variants={cardVariants} viewDetailsText={t('portfolio.viewDetails')} />
+            <ProjectCard 
+              key={project.id} 
+              project={project} 
+              viewDetailsText={t('portfolio.viewDetails') || "PLAY"} 
+            />
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="portfolio-cta"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ delay: 0.3 }}
-        >
-          <a href="https://github.com/EseWey21" target="_blank" rel="noopener noreferrer" className="btn">
-            GitHub
+        <div className="portfolio-cta">
+          <a href="https://github.com/EseWey21" target="_blank" rel="noopener noreferrer">
+            <button>GITHUB</button>
           </a>
-          <a
-            href="https://linkedin.com/in/sajit-ventura-4197411b7"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn"
-          >
-            LinkedIn
+          <a href="https://linkedin.com/in/sajit-ventura-4197411b7" target="_blank" rel="noopener noreferrer">
+            <button>LINKEDIN</button>
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
 }
 
-const ProjectCard = ({ project, viewDetailsText, variants }) => {
+const ProjectCard = ({ project, viewDetailsText }) => {
   return (
-    <motion.div 
-      className="bento-card project-card" 
-      variants={variants}
-    >
+    <div className="project-card retro-container">
+      <div className="project-header">STAGE {project.id}</div>
       <div className="project-content">
         <h3 className="project-title">{project.title}</h3>
         <p className="project-description">{project.description}</p>
@@ -129,13 +163,11 @@ const ProjectCard = ({ project, viewDetailsText, variants }) => {
         </div>
       </div>
       {project.link && (
-        <div className="project-overlay">
-          <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
-            {viewDetailsText}
-          </a>
-        </div>
+        <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-overlay">
+          <span className="project-link-text">{viewDetailsText}</span>
+        </a>
       )}
-    </motion.div>
+    </div>
   )
 }
 

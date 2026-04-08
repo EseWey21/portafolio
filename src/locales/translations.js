@@ -73,13 +73,13 @@ export const translations = {
       networks: "Redes",
     },
     footer: {
-      start: "PRESIONA START PARA CONTINUAR",
+      start: "PRESIONA START PARA DESCARGAR CV_",
     },
   },
   en: {
     nav: {
       home: "HOME",
-      about: "ABOUT",
+      about: "ABOUT ME",
       skills: "SKILLS",
       portfolio: "PORTFOLIO",
       contact: "CONTACT",
@@ -100,12 +100,12 @@ export const translations = {
       p1_2: ", I am 23 years old and a Telematics Engineering student at UPIITA – IPN. I am also currently working as an Application Developer at IBM.",
       p2_1: "I am a ",
       p2_mock: "passionate, enthusiastic, imaginative, and dedicated",
-      p2_2: " person. I strive to leave a good impression in every interaction, always pursuing respect, warmth, and kindness. When an idea sticks in my mind, I don't rest until it's turned into action. I love self-taught learning, although when necessary, I don't hesitate to seek guidance from the right people.",
+      p2_2: " person. I strive to leave a good impression in every interaction, always acting with respect, warmth, and kindness. When an idea gets stuck in my mind, I don't rest until I bring it to life. I love teaching myself new things, although I don't hesitate to seek guidance from the right people when necessary.",
       p3: "I highly value forming strong and authentic bonds. I surround myself with people who inspire me and push me to grow.",
       p4_1: "Besides programming, I enjoy ",
       p4_mock: "video games, movies, and listening to music",
       p4_2: " —my favorite activity 24/7.",
-      p5: "Although I tend to be a bit shy at first, I am a charismatic, empathetic, and highly communicative person. I work very well in teams, especially when there is a common purpose. I like to listen, support, and always be willing to help within my capabilities. Justice, respect, and collaboration are values that guide my way of being and working.",
+      p5: "Although I tend to be a bit shy at first, I am a charismatic, empathetic, and highly communicative person. I work very well in teams, especially when there is a common purpose. I like to listen, support others, and I am always willing to help within my capabilities. Justice, respect, and collaboration are values that guide my way of being and working.",
     },
     skills: {
       title: "Skills",
@@ -150,7 +150,7 @@ export const translations = {
       networks: "Socials",
     },
     footer: {
-      start: "PRESS START TO CONTINUE",
+      start: "PRESS START TO DOWNLOAD CV_",
     },
   },
 };

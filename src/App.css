@@ -1,290 +1,104 @@
-@import url("https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap");
-
-:root {
-  --laser-blue: #00ffd0;
-  --bright-fuchsia: #ff29cb;
-  --deep-purple: #411c52;
-  --neon-magenta: #e600ff;
-  --dark-blue: #060021;
-  --pastel-yellow: #ffe347;
-  --grid-size: 30px;
-  --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
-  --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --bento-bg: rgba(6, 0, 33, 0.6);
-  --bento-border-light: rgba(0, 255, 208, 0.15);
-  --bento-border-hover: rgba(0, 255, 208, 0.8);
-  --bento-fuchsia-border: rgba(255, 41, 203, 0.3);
-  --glass-blur: blur(10px);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: "VT323", monospace;
-  background-color: var(--dark-blue);
-  color: white;
-  overflow-x: clip;
-  cursor: none;
-  width: 100%;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .app {
   position: relative;
   min-height: 100vh;
   width: 100%;
-  overflow-x: hidden;
-  padding: 0;
-}
-
-.page-wrapper {
-  width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Press Start 2P", cursive;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-}
-
-h1 {
-  font-size: clamp(1.8rem, 6vw, 2.5rem);
-  color: var(--pastel-yellow);
-}
-
-h2 {
-  font-size: clamp(1.5rem, 5vw, 2rem);
-  color: var(--laser-blue);
-  text-transform: uppercase;
-  position: relative;
-  display: inline-block;
-  margin-bottom: 2rem;
-}
-
-h2::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--bright-fuchsia);
-  box-shadow: 0 0 10px var(--bright-fuchsia), 0 0 20px var(--bright-fuchsia);
-  transform-origin: left;
-  transform: scaleX(0);
-  animation: lineReveal 1.2s var(--transition-smooth) forwards;
-}
-
-p {
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 1rem;
+main {
+  flex: 1;
 }
 
 .container {
   width: 100%;
-  margin: 0;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
   padding: 0 2rem;
 }
 
 section {
-  width: 100%;
-  padding: 2.5rem 0;
+  padding: 3rem 0;
   position: relative;
-  overflow: hidden;
 }
 
-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, transparent 0%, var(--dark-blue) 100%);
-  z-index: -1;
-  pointer-events: none;
+/* Base styles for Retro Bento Containers */
+.retro-container {
+  background: var(--bento-bg);
+  border: 3px solid var(--border-color);
+  box-shadow: 8px 8px 0 var(--shadow-color);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: var(--transition-fast);
 }
 
-.btn {
-  font-family: "Press Start 2P", cursive;
+.retro-container:hover {
+  box-shadow: 6px 6px 0 var(--focus-color, var(--accent-purple));
+  transform: translate(2px, 2px);
+}
+
+/* Titles */
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  position: relative;
   display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  color: var(--laser-blue);
-  border: 2px solid var(--laser-blue);
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.5s var(--transition-smooth);
-  cursor: none;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  backdrop-filter: blur(5px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-color);
+  padding: 0 1rem;
+  z-index: 2;
+  color: var(--accent-purple);
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
 
-.btn::before {
-  content: "";
+.section-title::after {
+  content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(0, 255, 208, 0.4), transparent);
-  transition: all 0.6s var(--transition-smooth);
+  top: auto;
+  bottom: -10px;
+  left: -50vw;
+  width: 150vw;
+  height: 4px;
+  background: var(--border-color);
+  z-index: -1;
 }
 
-.btn:hover {
-  color: var(--dark-blue);
-  background-color: var(--laser-blue);
-  box-shadow: 0 0 15px var(--laser-blue), 0 0 30px var(--laser-blue);
-  transform: translateY(-5px) scale(1.05);
-  letter-spacing: 1.5px;
-}
-
-.btn:hover::before {
-  left: 100%;
-}
-
-.grid-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: var(--grid-size) var(--grid-size);
-  background-image: linear-gradient(to right, rgba(65, 28, 82, 0.1) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(65, 28, 82, 0.1) 1px, transparent 1px);
-  z-index: -2;
-  will-change: transform;
-}
-
+/* Footer */
 .footer {
   padding: 2rem 0;
-  background-color: rgba(6, 0, 33, 0.9);
-  border-top: 2px solid var(--bright-fuchsia);
+  background-color: var(--bg-secondary);
+  border-top: 3px solid var(--border-color);
   text-align: center;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
+  margin-top: auto;
 }
 
-.footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 41, 203, 0.1), transparent);
-  animation: footerGlow 8s infinite var(--transition-smooth);
+.footer p {
+  font-family: var(--font-retro);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .footer-crt-text {
-  font-family: "Press Start 2P", cursive;
-  font-size: 0.8rem;
-  color: var(--laser-blue);
-  margin-top: 1rem;
-  animation: blink 1s infinite;
-}
-
-/* Nuevas animaciones */
-@keyframes lineReveal {
-  0% {
-    transform: scaleX(0);
-  }
-  100% {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes fadeUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes scaleIn {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+  font-family: var(--font-pixel);
+  font-size: 0.6rem;
+  color: var(--accent-pink);
+  animation: blink 1s infinite alternate;
 }
 
 @keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes footerGlow {
-  0%,
-  100% {
-    transform: translateX(-100%);
-  }
-  50% {
-    transform: translateX(100%);
-  }
-}
-
-.section-title {
-  opacity: 0;
-  animation: fadeUp 1s var(--transition-bounce) forwards;
-}
-
-.animate-in {
-  animation: fadeUp 1s var(--transition-bounce) forwards;
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 @media (max-width: 768px) {
-  .btn {
-    font-size: 0.75rem;
-    padding: 0.6rem 1.2rem;
+  .section-title {
+    font-size: 1.2rem;
+  }
+  .retro-container {
+    padding: 1.5rem;
+    box-shadow: 4px 4px 0 var(--shadow-color);
   }
 }
 
@@ -292,9 +106,7 @@ section::before {
   .container {
     padding: 0 1rem;
   }
-  
   section {
-    padding: 2rem 0;
+    padding: 3rem 0;
   }
 }
-

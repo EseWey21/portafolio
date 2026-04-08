@@ -1,9 +1,8 @@
-"use client"
-
-import { useMemo } from "react"
+import { useEffect, useRef } from "react"
 import "./Skills.css"
-import { motion } from "framer-motion"
 import { useLanguage } from "../../context/LanguageContext"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 import {
   FaPython,
@@ -25,22 +24,65 @@ import {
   SiDotnet
 } from "react-icons/si"
 
+gsap.registerPlugin(ScrollTrigger)
+
 const Skills = () => {
   const { t } = useLanguage()
+  const skillsRef = useRef(null)
 
-  const blockVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-  }
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.fromTo(".section-title", 
+        { y: 30, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".skills",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          ease: "power2.out"
+        }
+      );
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
-  }
+      gsap.fromTo(".skill-category", 
+        { y: 30, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".skills-bento",
+            start: "top 80%",
+          },
+          y: 0,
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.15,
+          ease: "power2.out"
+        }
+      );
+      
+      gsap.fromTo(".skill-item", 
+        { scale: 0.5, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: ".skills-bento",
+            start: "top 60%",
+          },
+          scale: 1,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "back.out(1.5)"
+        }
+      );
+    }, skillsRef);
+
+    return () => ctx.revert();
+  }, [])
 
   const categories = [
     {
-      title: t('skills.cat1'),
+      title: t('skills.cat1') || "LANGUAGES",
       skills: [
         { name: "C", icon: <FaCode /> },
         { name: "C++", icon: <SiCplusplus /> },
@@ -51,7 +93,7 @@ const Skills = () => {
       ],
     },
     {
-      title: t('skills.cat2'),
+      title: t('skills.cat2') || "FRAMEWORKS",
       skills: [
         { name: "React", icon: <FaReact /> },
         { name: "Node.js", icon: <FaNodeJs /> },
@@ -59,7 +101,7 @@ const Skills = () => {
       ],
     },
     {
-      title: t('skills.cat3'),
+      title: t('skills.cat3') || "TOOLS/DB",
       skills: [
         { name: "MySQL", icon: <SiMysql /> },
         { name: "PostgreSQL", icon: <SiPostgresql /> },
@@ -69,53 +111,38 @@ const Skills = () => {
       ],
     },
     {
-      title: t('skills.cat4'),
+      title: t('skills.cat4') || "COMMUNICATION",
       skills: [
-        { name: t('skills.esNat'), icon: <FaLanguage /> },
-        { name: t('skills.enB1'), icon: <FaLanguage /> },
+        { name: t('skills.esNat') || "ES", icon: <FaLanguage /> },
+        { name: t('skills.enB1') || "EN", icon: <FaLanguage /> },
       ],
     },
   ]
 
   return (
-    <section id="skills" className="skills">
+    <section id="skills" className="skills" ref={skillsRef}>
       <div className="container">
-        <motion.h2 
-          className="section-title"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {t('skills.title')}
-        </motion.h2>
+        <h2 className="section-title">
+          {t('skills.title') || "SKILLS TREE"}
+        </h2>
 
-        <motion.div 
-          className="skills-bento"
-          variants={blockVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
+        <div className="skills-bento">
           {categories.map((category, index) => (
-            <motion.div className="bento-card skill-category" key={index} variants={itemVariants}>
+            <div className="skill-category retro-container" key={index}>
               <h3 className="skills-category-title">{category.title}</h3>
               <div className="skills-grid">
                 {category.skills.map((skill, skillIndex) => (
-                  <motion.div 
-                    className="skill-item" 
-                    key={skillIndex}
-                    whileHover={{ scale: 1.05, x: 5 }}
-                  >
+                  <div className="skill-item" key={skillIndex}>
                     <div className="skill-icon" title={skill.name}>
                       {skill.icon}
                     </div>
                     <div className="skill-name">{skill.name}</div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useState, useRef } from "react"
 import "./App.css"
 import Header from "./components/Header/Header"
@@ -11,65 +9,32 @@ import Contact from "./components/Contact/Contact"
 import CRTEffect from "./components/CRTEffect/CRTEffect"
 import Cursor from "./components/Cursor/Cursor"
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen"
-import { motion, useScroll, useTransform } from "framer-motion"
 import { useLanguage } from "./context/LanguageContext"
+import cvPath from './components/assets/CV_English.pdf'
 
 function App() {
   const { t } = useLanguage()
   const [loading, setLoading] = useState(true)
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
-  const [scrollY, setScrollY] = useState(0)
   const appRef = useRef(null)
-
-  // Smooth scroll animation
-  const smoothScroll = (e) => {
-    e.preventDefault()
-    const href = e.currentTarget.getAttribute("href")
-    const targetId = href.replace("#", "")
-    const element = document.getElementById(targetId)
-    const offsetTop = element.getBoundingClientRect().top + window.pageYOffset
-
-    window.scrollTo({
-      top: offsetTop,
-      behavior: "smooth",
-    })
-  }
 
   useEffect(() => {
     // Simulate loading time
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 2500)
+    }, 2000)
 
     const handleMouseMove = (e) => {
       setCursorPosition({ x: e.clientX, y: e.clientY })
     }
 
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    // Add smooth scrolling to all anchor links
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", smoothScroll)
-    })
-
     window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("scroll", handleScroll)
 
     return () => {
       clearTimeout(timer)
       window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("scroll", handleScroll)
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.removeEventListener("click", smoothScroll)
-      })
     }
   }, [])
-
-  // Utilizamos framer-motion para calcular el parallax en base al scroll
-  const { scrollYProgress } = useScroll()
-  const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
 
   if (loading) {
     return <LoadingScreen />
@@ -78,21 +43,27 @@ function App() {
   return (
     <div className="page-wrapper">
       <div className="app" ref={appRef}>
+        {/* Retro Effects */}
         <CRTEffect />
         <Cursor position={cursorPosition} />
+        
+        {/* Main Content */}
         <Header />
-        <motion.div className="grid-bg" style={{ y: gridY }}></motion.div>
         <main>
-          <Hero scrollY={scrollY} />
+          <Hero />
           <About />
           <Skills />
           <Portfolio />
           <Contact />
         </main>
+        
+        {/* Footer */}
         <footer className="footer">
           <div className="container">
             <p>© {new Date().getFullYear()} Edgar Sajit Lopez Ventura</p>
-            <p className="footer-crt-text">{t('footer.start')}</p>
+            <a href={cvPath} download="CV_Sajit_Lopez.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <p className="footer-crt-text" style={{ cursor: 'pointer' }}>{t('footer.start') || "PRESS START TO DOWNLOAD CV_"}</p>
+            </a>
           </div>
         </footer>
       </div>
