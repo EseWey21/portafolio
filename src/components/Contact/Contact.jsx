@@ -1,40 +1,50 @@
 "use client"
 import "./Contact.css"
-import { useInView } from "react-intersection-observer"
-import { useSpring, animated, config } from "react-spring"
+import { motion } from "framer-motion"
+import { useLanguage } from "../../context/LanguageContext"
 
 const Contact = () => {
-  const [sectionRef, inView] = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-  })
+  const { t } = useLanguage()
 
-  // Animation for the section
-  const sectionAnimation = useSpring({
-    opacity: inView ? 1 : 0,
-    transform: inView ? "translateY(0)" : "translateY(50px)",
-    config: config.gentle,
-  })
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+  }
+
+  const leftVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  }
+
+  const rightVariants = {
+    hidden: { opacity: 0, x: 30 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  }
 
   return (
-    <section id="contact" className="contact" ref={sectionRef}>
+    <section id="contact" className="contact">
       <div className="container">
-        <h2 className="section-title">Contacto</h2>
+        <motion.h2 
+          className="section-title"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {t('contact.title')}
+        </motion.h2>
 
-        <animated.div className="contact-container" style={sectionAnimation}>
-          <animated.div
-            className="contact-info"
-            style={useSpring({
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateX(0)" : "translateX(-50px)",
-              delay: 300,
-              config: config.gentle,
-            })}
-          >
+        <motion.div 
+          className="contact-container"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <motion.div className="bento-card contact-info" variants={leftVariants}>
             <div className="contact-item">
               <div className="contact-item-icon">📧</div>
               <div className="contact-item-content">
-                <h3 className="contact-item-title">Correo</h3>
+                <h3 className="contact-item-title">{t('contact.email')}</h3>
                 <p className="contact-item-value">sajitlove@hotmail.com</p>
               </div>
             </div>
@@ -42,7 +52,7 @@ const Contact = () => {
             <div className="contact-item">
               <div className="contact-item-icon">📱</div>
               <div className="contact-item-content">
-                <h3 className="contact-item-title">Teléfono</h3>
+                <h3 className="contact-item-title">{t('contact.phone')}</h3>
                 <p className="contact-item-value">551 725 3335</p>
               </div>
             </div>
@@ -50,41 +60,20 @@ const Contact = () => {
             <div className="contact-item">
               <div className="contact-item-icon">🔗</div>
               <div className="contact-item-content">
-                <h3 className="contact-item-title">Redes</h3>
+                <h3 className="contact-item-title">{t('contact.networks')}</h3>
                 <div className="contact-social-links">
-                  <a
-                    href="https://github.com/EseWey21"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-social-link"
-                  >
+                  <a href="https://github.com/EseWey21" target="_blank" rel="noopener noreferrer" className="contact-social-link">
                     GitHub
                   </a>
-                  <a
-                    href="https://linkedin.com/in/sajit-ventura-4197411b7"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="contact-social-link"
-                  >
+                  <a href="https://linkedin.com/in/sajit-ventura-4197411b7" target="_blank" rel="noopener noreferrer" className="contact-social-link">
                     LinkedIn
                   </a>
                 </div>
               </div>
             </div>
-          </animated.div>
+          </motion.div>
 
-          <animated.div
-            className="contact-form-container"
-            style={useSpring({
-              opacity: inView ? 1 : 0,
-              transform: inView ? "translateX(0)" : "translateX(50px)",
-              delay: 300,
-              config: config.gentle,
-            })}
-          >
-            {/* Comentamos el formulario de contacto original */}
-            {/* ... código comentado del formulario ... */}
-
+          <motion.div className="bento-card contact-form-container" variants={rightVariants}>
             {/* Agregamos el arte ASCII en su lugar */}
             <div className="ascii-art-container">
               <div className="ascii-art-header">
@@ -126,8 +115,8 @@ const Contact = () => {
                 </pre>
               </div>
             </div>
-          </animated.div>
-        </animated.div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )

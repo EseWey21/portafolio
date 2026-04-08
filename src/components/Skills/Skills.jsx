@@ -2,8 +2,8 @@
 
 import { useMemo } from "react"
 import "./Skills.css"
-import { useInView } from "react-intersection-observer"
-import { useSpring, animated, config } from "react-spring"
+import { motion } from "framer-motion"
+import { useLanguage } from "../../context/LanguageContext"
 
 import {
   FaPython,
@@ -26,20 +26,21 @@ import {
 } from "react-icons/si"
 
 const Skills = () => {
-  const [sectionRef, inView] = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-  })
+  const { t } = useLanguage()
 
-  const sectionAnimation = useSpring({
-    opacity: inView ? 1 : 0,
-    transform: inView ? "translateY(0)" : "translateY(50px)",
-    config: config.gentle,
-  })
+  const blockVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  }
 
   const categories = [
     {
-      title: "Lenguajes de programación",
+      title: t('skills.cat1'),
       skills: [
         { name: "C", icon: <FaCode /> },
         { name: "C++", icon: <SiCplusplus /> },
@@ -50,7 +51,7 @@ const Skills = () => {
       ],
     },
     {
-      title: "Frameworks & Librerías",
+      title: t('skills.cat2'),
       skills: [
         { name: "React", icon: <FaReact /> },
         { name: "Node.js", icon: <FaNodeJs /> },
@@ -58,7 +59,7 @@ const Skills = () => {
       ],
     },
     {
-      title: "Herramientas",
+      title: t('skills.cat3'),
       skills: [
         { name: "MySQL", icon: <SiMysql /> },
         { name: "PostgreSQL", icon: <SiPostgresql /> },
@@ -68,60 +69,53 @@ const Skills = () => {
       ],
     },
     {
-      title: "Idiomas",
+      title: t('skills.cat4'),
       skills: [
-        { name: "Español (nativo)", icon: <FaLanguage /> },
-        { name: "Inglés (B1)", icon: <FaLanguage /> },
+        { name: t('skills.esNat'), icon: <FaLanguage /> },
+        { name: t('skills.enB1'), icon: <FaLanguage /> },
       ],
     },
   ]
 
-  const categoryAnimations = useMemo(() => {
-    return categories.map((category, index) =>
-      useSpring({
-        opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : "translateY(30px)",
-        delay: 200 * index,
-        config: config.gentle,
-      }),
-    )
-  }, [inView, categories])
-
-  const skillAnimations = useMemo(() => {
-    return categories.map((category, index) =>
-      category.skills.map((skill, skillIndex) =>
-        useSpring({
-          opacity: inView ? 1 : 0,
-          transform: inView ? "translateY(0)" : "translateY(20px)",
-          delay: 200 * index + 100 * skillIndex,
-          config: config.gentle,
-        }),
-      ),
-    )
-  }, [inView, categories])
-
   return (
-    <section id="skills" className="skills" ref={sectionRef}>
+    <section id="skills" className="skills">
       <div className="container">
-        <h2 className="section-title">Habilidades</h2>
+        <motion.h2 
+          className="section-title"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {t('skills.title')}
+        </motion.h2>
 
-        <animated.div className="skills-container" style={sectionAnimation}>
+        <motion.div 
+          className="skills-bento"
+          variants={blockVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {categories.map((category, index) => (
-            <animated.div className="skills-category" key={index} style={categoryAnimations[index]}>
+            <motion.div className="bento-card skill-category" key={index} variants={itemVariants}>
               <h3 className="skills-category-title">{category.title}</h3>
               <div className="skills-grid">
                 {category.skills.map((skill, skillIndex) => (
-                  <animated.div className="skill-item" key={skillIndex} style={skillAnimations[index][skillIndex]}>
+                  <motion.div 
+                    className="skill-item" 
+                    key={skillIndex}
+                    whileHover={{ scale: 1.05, x: 5 }}
+                  >
                     <div className="skill-icon" title={skill.name}>
                       {skill.icon}
                     </div>
                     <div className="skill-name">{skill.name}</div>
-                  </animated.div>
+                  </motion.div>
                 ))}
               </div>
-            </animated.div>
+            </motion.div>
           ))}
-        </animated.div>
+        </motion.div>
       </div>
     </section>
   )

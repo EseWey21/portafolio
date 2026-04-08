@@ -11,9 +11,11 @@ import Contact from "./components/Contact/Contact"
 import CRTEffect from "./components/CRTEffect/CRTEffect"
 import Cursor from "./components/Cursor/Cursor"
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen"
-import { useSpring, animated } from "react-spring"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useLanguage } from "./context/LanguageContext"
 
 function App() {
+  const { t } = useLanguage()
   const [loading, setLoading] = useState(true)
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
   const [scrollY, setScrollY] = useState(0)
@@ -65,11 +67,9 @@ function App() {
     }
   }, [])
 
-  // Parallax effect for grid background
-  const gridParallax = useSpring({
-    transform: `translate3d(0, ${scrollY * 0.05}px, 0)`,
-    config: { mass: 1, tension: 120, friction: 14 },
-  })
+  // Utilizamos framer-motion para calcular el parallax en base al scroll
+  const { scrollYProgress } = useScroll()
+  const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
 
   if (loading) {
     return <LoadingScreen />
@@ -81,7 +81,7 @@ function App() {
         <CRTEffect />
         <Cursor position={cursorPosition} />
         <Header />
-        <animated.div className="grid-bg" style={gridParallax}></animated.div>
+        <motion.div className="grid-bg" style={{ y: gridY }}></motion.div>
         <main>
           <Hero scrollY={scrollY} />
           <About />
@@ -92,7 +92,7 @@ function App() {
         <footer className="footer">
           <div className="container">
             <p>© {new Date().getFullYear()} Edgar Sajit Lopez Ventura</p>
-            <p className="footer-crt-text">PRESIONA START PARA CONTINUAR</p>
+            <p className="footer-crt-text">{t('footer.start')}</p>
           </div>
         </footer>
       </div>

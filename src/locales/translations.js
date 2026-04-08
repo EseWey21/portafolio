@@ -1,0 +1,156 @@
+export const translations = {
+  es: {
+    nav: {
+      home: "INICIO",
+      about: "SOBRE MÍ",
+      skills: "HABILIDADES",
+      portfolio: "PORTAFOLIO",
+      contact: "CONTACTO",
+    },
+    hero: {
+      developer: "DESARROLLADOR",
+      student: "ESTUDIANTE",
+      creator: "CREADOR",
+      viewPortfolio: "Ver Portafolio",
+      contactMe: "Contáctame",
+      downloadCv: "Descargar CV",
+      scroll: "DESPLÁZATE",
+    },
+    about: {
+      title: "Sobre Mí",
+      p1_1: "Hola, soy ",
+      p1_mock: "Sajit (Edgar Sajit Lopez Ventura)",
+      p1_2: ", tengo 23 años y soy estudiante de Ingeniería en Telemática en UPIITA – IPN. Actualmente trabajo como Application Developer en IBM.",
+      p2_1: "Soy una persona ",
+      p2_mock: "apasionada, entusiasta, imaginativa y dedicada",
+      p2_2: ". Me esfuerzo por dejar una buena impresión en cada interacción, procurando siempre el respeto, la cordialidad y la amabilidad. Cuando una idea se me clava en la mente, no descanso hasta convertirla en acción. Me encanta aprender de forma autodidacta, aunque cuando es necesario, no dudo en buscar guía de las personas adecuadas.",
+      p3: "Valoro mucho formar vínculos fuertes y auténticos. Me rodeo de personas que me inspiran y me impulsan a crecer.",
+      p4_1: "Además de programar, disfruto de los ",
+      p4_mock: "videojuegos, el cine y escuchar música",
+      p4_2: " —mi actividad favorita 24/7.",
+      p5: "Aunque suelo ser algo tímido al principio, soy una persona carismática, empática y muy comunicativa. Trabajo muy bien en equipo, sobre todo cuando hay un propósito en común. Me gusta escuchar, apoyar y siempre estar dispuesto a ayudar dentro de mis posibilidades. La justicia, el respeto y la colaboración son valores que guían mi forma de ser y trabajar.",
+    },
+    skills: {
+      title: "Habilidades",
+      cat1: "Lenguajes de programación",
+      cat2: "Frameworks & Librerías",
+      cat3: "Herramientas",
+      cat4: "Idiomas",
+      esNat: "Español (nativo)",
+      enB1: "Inglés (B1)",
+    },
+    portfolio: {
+      title: "Portafolio",
+      subtitle: "Algunos de mis proyectos personales y profesionales más destacados.",
+      viewDetails: "Ver Detalles",
+      projects: {
+        p1: {
+          title: "Data Intelligence Platform",
+          desc: "Plataforma de análisis de sábanas telefónicas para investigación y análisis de datos de comunicación.",
+        },
+        p2: {
+          title: "Audit Control Platform",
+          desc: "Plataforma para el control y gestión de auditorías internas dentro de un grupo comercial.",
+        },
+        p3: {
+          title: "Mácara",
+          desc: "Sitio web y aplicación móvil integral para una cafetería local.",
+        },
+        p4: {
+          title: "Ecoprep",
+          desc: "Sitio web educativo para cursos en línea y servicios académicos.",
+        },
+        p5: {
+          title: "Servidor P2P Torrent",
+          desc: "Sistema de intercambio de archivos (Peer-to-peer) desarrollado en Python.",
+        },
+      },
+    },
+    contact: {
+      title: "Contacto",
+      email: "Correo",
+      phone: "Teléfono",
+      networks: "Redes",
+    },
+    footer: {
+      start: "PRESIONA START PARA CONTINUAR",
+    },
+  },
+  en: {
+    nav: {
+      home: "HOME",
+      about: "ABOUT",
+      skills: "SKILLS",
+      portfolio: "PORTFOLIO",
+      contact: "CONTACT",
+    },
+    hero: {
+      developer: "DEVELOPER",
+      student: "STUDENT",
+      creator: "CREATOR",
+      viewPortfolio: "View Portfolio",
+      contactMe: "Contact Me",
+      downloadCv: "Download CV",
+      scroll: "SCROLL DOWN",
+    },
+    about: {
+      title: "About Me",
+      p1_1: "Hello, I am ",
+      p1_mock: "Sajit (Edgar Sajit Lopez Ventura)",
+      p1_2: ", I am 23 years old and a Telematics Engineering student at UPIITA – IPN. I am also currently working as an Application Developer at IBM.",
+      p2_1: "I am a ",
+      p2_mock: "passionate, enthusiastic, imaginative, and dedicated",
+      p2_2: " person. I strive to leave a good impression in every interaction, always pursuing respect, warmth, and kindness. When an idea sticks in my mind, I don't rest until it's turned into action. I love self-taught learning, although when necessary, I don't hesitate to seek guidance from the right people.",
+      p3: "I highly value forming strong and authentic bonds. I surround myself with people who inspire me and push me to grow.",
+      p4_1: "Besides programming, I enjoy ",
+      p4_mock: "video games, movies, and listening to music",
+      p4_2: " —my favorite activity 24/7.",
+      p5: "Although I tend to be a bit shy at first, I am a charismatic, empathetic, and highly communicative person. I work very well in teams, especially when there is a common purpose. I like to listen, support, and always be willing to help within my capabilities. Justice, respect, and collaboration are values that guide my way of being and working.",
+    },
+    skills: {
+      title: "Skills",
+      cat1: "Programming Languages",
+      cat2: "Frameworks & Libraries",
+      cat3: "Tools",
+      cat4: "Languages",
+      esNat: "Spanish (Native)",
+      enB1: "English (B1)",
+    },
+    portfolio: {
+      title: "Portfolio",
+      subtitle: "Some of my most notable personal and professional projects.",
+      viewDetails: "View Details",
+      projects: {
+        p1: {
+          title: "Data Intelligence Platform",
+          desc: "Call record analysis platform.",
+        },
+        p2: {
+          title: "Audit Control Platform",
+          desc: "Internal audit management platform.",
+        },
+        p3: {
+          title: "Mácara",
+          desc: "Website and mobile app for a local coffee shop.",
+        },
+        p4: {
+          title: "Ecoprep",
+          desc: "Educational website for online courses and academic services.",
+        },
+        p5: {
+          title: "P2P Torrent Server",
+          desc: "Peer-to-peer file-sharing system in Python.",
+        },
+      },
+    },
+    contact: {
+      title: "Contact",
+      email: "Email",
+      phone: "Phone",
+      networks: "Socials",
+    },
+    footer: {
+      start: "PRESS START TO CONTINUE",
+    },
+  },
+};

@@ -5,8 +5,8 @@
 
 .contact-container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 3rem;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
 }
 
 .contact-info {
@@ -138,7 +138,7 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .ascii-art {
@@ -176,5 +176,15 @@
 
   .contact-form-container {
     height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ascii-art {
+    font-size: 0.25rem;
+    line-height: 0.35rem;
+  }
+  .contact-form-container {
+    height: 250px;
   }
 }

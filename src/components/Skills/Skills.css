@@ -3,29 +3,27 @@
   position: relative;
 }
 
-.skills-container {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
+.skills-bento {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
   width: 100%;
 }
 
-.skills-category {
-  background-color: rgba(6, 0, 33, 0.5);
-  border: 1px solid var(--deep-purple);
+.skill-category {
+  /* Using bento-card from global/About but with local additions */
+  background-color: var(--bento-bg);
+  border: 1px solid var(--bento-border-light);
+  border-radius: 12px;
+  backdrop-filter: var(--glass-blur);
   padding: 2rem;
-  border-radius: 5px;
-  position: relative;
   transition: all 0.5s var(--transition-smooth);
-  width: 100%;
-  backdrop-filter: blur(5px);
-  will-change: transform, opacity;
 }
 
-.skills-category:hover {
-  box-shadow: 0 0 25px var(--bright-fuchsia);
-  border-color: var(--bright-fuchsia);
-  transform: translateY(-10px);
+.skill-category:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 208, 0.1);
+  border-color: var(--laser-blue);
+  transform: translateY(-5px);
 }
 
 .skills-category-title {
@@ -65,12 +63,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  transition: all 0.5s var(--transition-bounce);
-  will-change: transform, opacity;
-}
-
-.skill-item:hover {
-  transform: translateY(-5px) scale(1.05);
+  cursor: default;
 }
 
 .skill-icon {
@@ -112,7 +105,12 @@
 
 .skill-item:hover .skill-name {
   color: var(--laser-blue);
-  text-shadow: 0 0 5px var(--laser-blue);
+}
+
+@media (max-width: 992px) {
+  .skills-bento {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -120,7 +118,7 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 
-  .skills-category {
+  .skill-category {
     padding: 1.5rem;
   }
 
@@ -129,3 +127,21 @@
   }
 }
 
+@media (max-width: 480px) {
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.8rem;
+  }
+
+  .skill-category {
+    padding: 1.2rem;
+  }
+
+  .skill-item {
+    gap: 0.6rem;
+  }
+
+  .skill-name {
+    font-size: 0.9rem;
+  }
+}

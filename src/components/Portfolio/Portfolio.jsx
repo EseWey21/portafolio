@@ -1,76 +1,98 @@
 "use client"
 import "./Portfolio.css"
-import { useInView } from "react-intersection-observer"
-import { useSpring, animated, config } from "react-spring"
+import { motion } from "framer-motion"
+import { useLanguage } from "../../context/LanguageContext"
 
 const Portfolio = () => {
-  const [sectionRef, inView] = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-  })
-
-  // Animation for the section
-  const sectionAnimation = useSpring({
-    opacity: inView ? 1 : 0,
-    transform: inView ? "translateY(0)" : "translateY(50px)",
-    config: config.gentle,
-  })
+  const { t } = useLanguage()
 
   const projects = [
     {
       id: 1,
-      title: "Plataforma de Inteligencia de Datos",
-      description:
-        "Plataforma de análisis de sábanas telefónicas para investigación y análisis de datos de comunicación.",
+      title: t('portfolio.projects.p1.title'),
+      description: t('portfolio.projects.p1.desc'),
       tags: ["React", "C#", ".NET"],
       link: null,
     },
     {
       id: 2,
-      title: "Plataforma Para El Control de Auditorías",
-      description: "Plataforma para el control y gestión de auditorías internas dentro de un grupo comercial.",
+      title: t('portfolio.projects.p2.title'),
+      description: t('portfolio.projects.p2.desc'),
       tags: ["React", "Node.js"],
       link: null,
     },
     {
       id: 3,
-      title: "Mácara",
-      description: "Diseño y desarrollo de sitio web y aplicacion móvil de una cafetería local.",
+      title: t('portfolio.projects.p3.title'),
+      description: t('portfolio.projects.p3.desc'),
       tags: ["React", "React Native", "Node.js"],
       link: "https://macaracafe.com",
     },
     {
       id: 4,
-      title: "Servidor P2P tipo Torrent",
-      description:
-        "Desarrollo de un programa en Python que implementa un sistema de compartición de archivos peer-to-peer similar a BitTorrent.",
+      title: t('portfolio.projects.p4.title'),
+      description: t('portfolio.projects.p4.desc'),
+      tags: ["React", "Node.js"],
+      link: "https://ecoprep.com.mx",
+    },
+    {
+      id: 5,
+      title: t('portfolio.projects.p5.title'),
+      description: t('portfolio.projects.p5.desc'),
       tags: ["Python"],
       link: "https://github.com/EseWey21/SD/tree/main/Proyecto",
     },
   ]
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+  }
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  }
+
   return (
-    <section id="portfolio" className="portfolio" ref={sectionRef}>
+    <section id="portfolio" className="portfolio">
       <div className="container">
-        <h2 className="section-title">Portafolio</h2>
-        <animated.p className="portfolio-note" style={sectionAnimation}>
-          Algunos de mis proyectos personales y profesionales más destacados.
-        </animated.p>
+        <motion.h2 
+          className="section-title"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {t('portfolio.title')}
+        </motion.h2>
+        
+        <motion.p 
+          className="portfolio-note"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {t('portfolio.subtitle')}
+        </motion.p>
 
-        <div className="projects-grid">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+        <motion.div 
+          className="projects-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} variants={cardVariants} viewDetailsText={t('portfolio.viewDetails')} />
           ))}
-        </div>
+        </motion.div>
 
-        <animated.div
+        <motion.div
           className="portfolio-cta"
-          style={useSpring({
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(30px)",
-            delay: 600,
-            config: config.gentle,
-          })}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ delay: 0.3 }}
         >
           <a href="https://github.com/EseWey21" target="_blank" rel="noopener noreferrer" className="btn">
             GitHub
@@ -83,30 +105,18 @@ const Portfolio = () => {
           >
             LinkedIn
           </a>
-        </animated.div>
+        </motion.div>
       </div>
     </section>
   )
 }
 
-// Extraído como componente separado y optimizado
-const ProjectCard = ({ project, index }) => {
-  // Usamos useInView con triggerOnce: true para que se active solo una vez
-  const [ref, inView] = useInView({
-    threshold: 0.2,
-    triggerOnce: true,
-  })
-
-  // Animación inicial de entrada (solo se ejecuta una vez)
-  const projectAnimation = useSpring({
-    opacity: inView ? 1 : 0,
-    transform: inView ? "translateY(0)" : "translateY(30px)",
-    delay: 150 * index,
-    config: config.gentle,
-  })
-
+const ProjectCard = ({ project, viewDetailsText, variants }) => {
   return (
-    <animated.div className="project-card" key={project.id} style={projectAnimation} ref={ref}>
+    <motion.div 
+      className="bento-card project-card" 
+      variants={variants}
+    >
       <div className="project-content">
         <h3 className="project-title">{project.title}</h3>
         <p className="project-description">{project.description}</p>
@@ -121,11 +131,11 @@ const ProjectCard = ({ project, index }) => {
       {project.link && (
         <div className="project-overlay">
           <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-link">
-            Ver Detalles
+            {viewDetailsText}
           </a>
         </div>
       )}
-    </animated.div>
+    </motion.div>
   )
 }
 
